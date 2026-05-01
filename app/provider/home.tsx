@@ -2,79 +2,90 @@ import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
 import { Screen } from "@/components/common/Screen";
-import { Button } from "@/components/ui/Button";
-
-const providerActions = [
-    {
-        title: "Browse open jobs",
-        description: "See customer job posts that match your service area.",
-    },
-    {
-        title: "Update availability",
-        description: "Set when you are available to accept work.",
-    },
-    {
-        title: "Check application status",
-        description: "View if your provider account is approved or still pending.",
-    },
-];
+import { DashboardActionTile } from "@/components/common/dashboard/DashboardActionTile";
+import { DashboardHeader } from "@/components/common/dashboard/DashboardHeader";
+import { DashboardInfoCard } from "@/components/common/dashboard/DashboardInfoCard";
+import { DashboardSummaryCard } from "@/components/common/dashboard/DashboardSummaryCard";
 
 export default function ProviderHomeScreen() {
-    const router = useRouter();
-    return (
-        <Screen>
-            <View className="flex-1">
-                <Text className="text-sm font-semibold text-slate-500">
-                    Provider home
-                </Text>
+  const router = useRouter();
 
-                <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
-                    Manage your provider account.
-                </Text>
+  return (
+    <Screen className="bg-slate-50">
+      <View className="flex-1">
+        <DashboardHeader
+          label="Provider"
+          title="Work dashboard"
+          avatarLabel="P"
+        />
 
-                <Text className="mt-3 text-base leading-6 text-slate-600">
-                    Once approved, you can browse jobs, send offers, and manage your service profile.
-                </Text>
+        <DashboardSummaryCard
+          label="Account status"
+          title="Pending approval"
+          description="Your provider account needs admin approval before you can accept real jobs."
+          buttonTitle="Check application"
+          tone="warning"
+          onPress={() => {}}
+        />
 
-                <View className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5">
-                    <Text className="text-sm font-semibold text-amber-900">
-                        Approval required
-                    </Text>
+        <View className="mt-7">
+          <Text className="text-base font-extrabold text-slate-950">
+            Quick actions
+          </Text>
 
-                    <Text className="mt-2 text-sm leading-5 text-amber-900">
-                        Providers should only access job features after admin approval. We will enforce this with auth and protected routes later.
-                    </Text>
-                </View>
+          <View className="mt-4 flex-row flex-wrap gap-3">
+            <DashboardActionTile
+              icon="⌕"
+              title="Open jobs"
+              description="Browse requests"
+              onPress={() => router.push("/provider/open-jobs")}
+            />
 
-                <View className="mt-5 gap-3">
-                    {providerActions.map((action) => (
-                        <View
-                            key={action.title}
-                            className="rounded-2xl border border-slate-200 bg-white p-5"
-                        >
-                            <Text className="text-base font-semibold text-slate-950">
-                                {action.title}
-                            </Text>
+            <DashboardActionTile
+              icon="₱"
+              title="Offers"
+              description="Sent offers"
+              onPress={() => {}}
+            />
 
-                            <Text className="mt-2 text-sm leading-5 text-slate-500">
-                                {action.description}
-                            </Text>
+            <DashboardActionTile
+              icon="◷"
+              title="Availability"
+              description="Set schedule"
+              onPress={() => {}}
+            />
 
-                            <View className="mt-4">
-                                <Button
-                                    title={action.title}
-                                    variant="secondary"
-                                    onPress={() => {
-                                        if (action.title === "Browse open jobs") {
-                                            router.push("/provider/open-jobs");
-                                        }
-                                    }}
-                                />
-                            </View>
-                        </View>
-                    ))}
-                </View>
-            </View>
-        </Screen>
-    );
+            <DashboardActionTile
+              icon="!"
+              title="Report"
+              description="Safety help"
+              onPress={() => router.push("/report")}
+            />
+          </View>
+        </View>
+
+        <View className="mt-7">
+          <View className="flex-row items-center justify-between">
+            <Text className="text-base font-extrabold text-slate-950">
+              Nearby sample job
+            </Text>
+
+            <Text className="text-sm font-semibold text-slate-500">
+              Preview
+            </Text>
+          </View>
+
+          <DashboardInfoCard
+            title="Fix leaking faucet"
+            subtitle="Plumbing • Dasmariñas, Cavite"
+            badgeLabel="₱500+"
+            badgeTone="success"
+            description="Sample job only. Real job access will be locked until approval."
+            buttonTitle="Browse open jobs"
+            onPress={() => router.push("/provider/open-jobs")}
+          />
+        </View>
+      </View>
+    </Screen>
+  );
 }
