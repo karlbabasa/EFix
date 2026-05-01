@@ -8,7 +8,7 @@ export default function CustomerHomeScreen() {
   const router = useRouter();
 
   return (
-    <Screen className="bg-slate-50" contentClassName="pb-28">
+    <Screen className="bg-slate-50" contentClassName="pb-24">
       <CustomerHomeDashboard
         appName="E-Fix"
         greeting="Hello, Karl"
