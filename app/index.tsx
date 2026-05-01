@@ -1,19 +1,32 @@
 import { Text, View } from "react-native";
 
+import { Screen } from "@/components/common/Screen";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+
 export default function Index() {
   return (
-    <View className="flex-1 items-center justify-center bg-slate-50 px-6">
-      <View className="h-24 w-24 items-center justify-center rounded-3xl bg-blue-600">
-        <Text className="text-4xl font-extrabold text-white">EF</Text>
+    <Screen contentClassName="justify-center">
+      <View className="rounded-[32px] bg-white p-6 shadow-sm">
+        <Badge label="Service marketplace" tone="info" />
+
+        <View className="mt-6 h-20 w-20 items-center justify-center rounded-3xl bg-blue-600">
+          <Text className="text-3xl font-extrabold text-white">EF</Text>
+        </View>
+
+        <Text className="mt-6 text-4xl font-extrabold text-slate-950">
+          E-Fix
+        </Text>
+
+        <Text className="mt-3 text-base leading-6 text-slate-500">
+          Need something fixed, cleaned, carried, or processed? Find trusted help nearby.
+        </Text>
+
+        <View className="mt-8 gap-3">
+          <Button title="I need help" onPress={() => {}} />
+          <Button title="I offer services" variant="secondary" onPress={() => {}} />
+        </View>
       </View>
-
-      <Text className="mt-6 text-4xl font-extrabold text-slate-950">
-        E-Fix
-      </Text>
-
-      <Text className="mt-3 text-center text-base leading-6 text-slate-500">
-        Find trusted service providers or post a job request.
-      </Text>
-    </View>
+    </Screen>
   );
 }
