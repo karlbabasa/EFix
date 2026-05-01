@@ -1,28 +1,10 @@
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
+import { demoOffers } from "@/data";
 import { OfferCard } from "@/components/customer/jobs/OfferCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { Button } from "@/components/ui/Button";
-
-const offers = [
-  {
-    providerName: "Mark D.",
-    service: "Plumbing",
-    price: "₱800",
-    time: "Tomorrow afternoon",
-    message: "I can check the leak and replace small parts if needed.",
-    rating: "4.8",
-  },
-  {
-    providerName: "Jun R.",
-    service: "Home repair",
-    price: "₱950",
-    time: "Tomorrow morning",
-    message: "I can inspect the faucet and bring basic tools.",
-    rating: "4.6",
-  },
-];
 
 export default function CustomerOffersScreen() {
   const router = useRouter();
@@ -42,9 +24,9 @@ export default function CustomerOffersScreen() {
       </Text>
 
       <View className="mt-8 gap-3">
-        {offers.map((offer) => (
+        {demoOffers.map((offer) => (
           <OfferCard
-            key={offer.providerName}
+            key={offer.id}
             providerName={offer.providerName}
             service={offer.service}
             rating={offer.rating}

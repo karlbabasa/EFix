@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { View } from "react-native";
 
+import { demoJobs } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
 import { FormCard } from "@/components/auth/FormCard";
@@ -8,46 +9,11 @@ import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { JobDetailRow } from "@/components/provider/jobs/JobDetailRow";
 import { Button } from "@/components/ui/Button";
 
-const jobs = {
-  faucet: {
-    title: "Fix leaking faucet",
-    category: "Plumbing",
-    location: "Dasmariñas, Cavite",
-    budget: "₱500 - ₱1,000",
-    schedule: "Tomorrow afternoon",
-    description:
-      "Kitchen faucet is leaking even when closed. Customer needs someone to check and fix it.",
-  },
-  cleaning: {
-    title: "House cleaning",
-    category: "Cleaning",
-    location: "Imus, Cavite",
-    budget: "₱800 - ₱1,500",
-    schedule: "This weekend",
-    description:
-      "General house cleaning for a small home. Customer prefers weekend schedule.",
-  },
-  documents: {
-    title: "Document pickup assistance",
-    category: "Documents",
-    location: "Trece Martires, Cavite",
-    budget: "₱300 - ₱600",
-    schedule: "Friday morning",
-    description:
-      "Customer needs help picking up documents. No fixer service or illegal processing allowed.",
-  },
-} as const;
-
-type JobId = keyof typeof jobs;
-
 export default function ProviderJobDetailsScreen() {
   const router = useRouter();
   const { jobId } = useLocalSearchParams<{ jobId?: string }>();
 
-  const selectedJobId =
-    typeof jobId === "string" && jobId in jobs ? (jobId as JobId) : "faucet";
-
-  const job = jobs[selectedJobId];
+  const job = demoJobs.find((item) => item.id === jobId) ?? demoJobs[0];
 
   return (
     <ScrollScreen className="bg-slate-50">
@@ -68,9 +34,7 @@ export default function ProviderJobDetailsScreen() {
 
       <View className="mt-5">
         <FormCard title="Description">
-          <View>
-            <JobDetailRow label="Request" value={job.description} />
-          </View>
+          <JobDetailRow label="Request" value={job.description} />
         </FormCard>
       </View>
 
@@ -88,7 +52,7 @@ export default function ProviderJobDetailsScreen() {
           onPress={() =>
             router.push({
               pathname: "/provider/send-offer",
-              params: { jobId: selectedJobId },
+              params: { jobId: job.id },
             })
           }
         />
