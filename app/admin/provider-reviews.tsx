@@ -1,16 +1,16 @@
 import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
-import { demoReports } from "@/data";
+import { demoProviderApplications } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
-import { AdminReportCard } from "@/components/admin/reviews/AdminReportCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { AdminReviewCard } from "@/components/admin/reviews/AdminReviewCard";
 
 function formatStatus(status: string) {
   return status.replace("_", " ");
 }
 
-export default function AdminReportReviewsScreen() {
+export default function AdminProviderReviewsScreen() {
   const router = useRouter();
 
   return (
@@ -25,25 +25,24 @@ export default function AdminReportReviewsScreen() {
       </Pressable>
 
       <AuthHeader
-        eyebrow="Report reviews"
-        title="Open safety cases."
-        description="Review reported issues, disputes, unsafe behavior, and possible policy violations."
+        eyebrow="Provider reviews"
+        title="Pending applications."
+        description="Review provider profiles and submitted legal documents before approval."
       />
 
       <View className="mt-8 gap-3">
-        {demoReports.map((report) => (
-          <AdminReportCard
-            key={report.id}
-            reporter={report.reporter}
-            reportedUser={report.reportedUser}
-            reason={report.reason}
-            jobTitle={report.jobTitle}
-            submittedAt={report.submittedAt}
-            status={formatStatus(report.status)}
+        {demoProviderApplications.map((application) => (
+          <AdminReviewCard
+            key={application.id}
+            name={application.name}
+            service={application.service}
+            location={application.location}
+            submittedAt={application.submittedAt}
+            status={formatStatus(application.status)}
             onReview={() =>
               router.push({
-                pathname: "/admin/report-review-detail",
-                params: { reportId: report.id },
+                pathname: "/admin/provider-review-detail",
+                params: { providerId: application.id },
               })
             }
           />

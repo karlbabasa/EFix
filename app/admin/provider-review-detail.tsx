@@ -1,61 +1,12 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Alert, Pressable, Text, View } from "react-native";
 
+import { demoProviderApplications } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
 import { FormCard } from "@/components/auth/FormCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { Button } from "@/components/ui/Button";
-
-const providers = {
-  mark: {
-    name: "Mark Dela Cruz",
-    service: "Plumbing",
-    location: "Dasmariñas, Cavite",
-    mobile: "0912 345 6789",
-    email: "mark@example.com",
-    experience: "3 years",
-    description: "Handles faucet leaks, pipe repairs, and basic home plumbing.",
-    documents: [
-      "Valid government ID",
-      "Selfie with ID",
-      "Barangay Clearance",
-      "Proof of address",
-    ],
-  },
-  jun: {
-    name: "Jun Reyes",
-    service: "Home repair",
-    location: "Imus, Cavite",
-    mobile: "0923 456 7890",
-    email: "jun@example.com",
-    experience: "5 years",
-    description: "General home repair, basic carpentry, and maintenance.",
-    documents: [
-      "Valid government ID",
-      "Selfie with ID",
-      "Police Clearance",
-      "Proof of address",
-    ],
-  },
-  ana: {
-    name: "Ana Santos",
-    service: "Cleaning",
-    location: "Bacoor, Cavite",
-    mobile: "0934 567 8901",
-    email: "ana@example.com",
-    experience: "2 years",
-    description: "Home cleaning, move-in cleaning, and basic organizing.",
-    documents: [
-      "Valid government ID",
-      "Selfie with ID",
-      "Barangay Clearance",
-      "Proof of address",
-    ],
-  },
-} as const;
-
-type ProviderId = keyof typeof providers;
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
@@ -75,12 +26,9 @@ export default function AdminProviderReviewDetailScreen() {
   const router = useRouter();
   const { providerId } = useLocalSearchParams<{ providerId?: string }>();
 
-  const selectedProviderId =
-    typeof providerId === "string" && providerId in providers
-      ? (providerId as ProviderId)
-      : "mark";
-
-  const provider = providers[selectedProviderId];
+  const provider =
+    demoProviderApplications.find((item) => item.id === providerId) ??
+    demoProviderApplications[0];
 
   return (
     <ScrollScreen className="bg-slate-50">
