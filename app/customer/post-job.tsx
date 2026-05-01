@@ -1,88 +1,91 @@
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
+import { AuthHeader } from "@/components/auth/AuthHeader";
+import { AuthNotice } from "@/components/auth/AuthNotice";
+import { FormCard } from "@/components/auth/FormCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/TextArea";
 import { TextField } from "@/components/ui/TextField";
 
 export default function PostJobScreen() {
-    const router = useRouter();
+  const router = useRouter();
 
-    return (
-        <ScrollScreen>
-            <Text className="text-sm font-semibold text-slate-500">
-                Post a job
-            </Text>
+  return (
+    <ScrollScreen className="bg-slate-50">
+      <AuthHeader
+        eyebrow="Post a job"
+        title="Tell providers what you need."
+        description="Add enough details so providers can send accurate offers."
+      />
 
-            <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
-                Tell providers what you need.
-            </Text>
+      <View className="mt-8">
+        <FormCard title="Job details">
+          <View className="gap-5">
+            <TextField
+              label="Job title"
+              placeholder="Example: Fix leaking faucet"
+              autoCapitalize="sentences"
+            />
 
-            <Text className="mt-3 text-base leading-6 text-slate-600">
-                Be clear with the service, location, schedule, and budget so providers
-                can send better offers.
-            </Text>
+            <TextField
+              label="Category"
+              placeholder="Plumbing, cleaning, errands, documents"
+              autoCapitalize="words"
+            />
 
-            <View className="mt-8 gap-5">
-                <TextField
-                    label="Job title"
-                    placeholder="Example: Fix leaking faucet"
-                    autoCapitalize="sentences"
-                />
+            <TextArea
+              label="Description"
+              placeholder="Describe the problem or task. Include important details."
+            />
+          </View>
+        </FormCard>
+      </View>
 
-                <TextField
-                    label="Category"
-                    placeholder="Plumbing, cleaning, errands, documents"
-                    autoCapitalize="words"
-                />
+      <View className="mt-5">
+        <FormCard title="Schedule and budget">
+          <View className="gap-5">
+            <TextField
+              label="Location"
+              placeholder="Example: Dasmariñas, Cavite"
+              autoCapitalize="words"
+            />
 
-                <TextArea
-                    label="Description"
-                    placeholder="Describe the problem or task. Include important details."
-                />
+            <TextField
+              label="Preferred date and time"
+              placeholder="Example: Tomorrow afternoon"
+            />
 
-                <TextField
-                    label="Location"
-                    placeholder="Example: Dasmariñas, Cavite"
-                    autoCapitalize="words"
-                />
+            <TextField
+              label="Budget"
+              placeholder="Example: ₱500 - ₱1,000"
+              keyboardType="default"
+            />
+          </View>
+        </FormCard>
+      </View>
 
-                <TextField
-                    label="Preferred date and time"
-                    placeholder="Example: Tomorrow afternoon"
-                />
+      <View className="mt-5">
+        <AuthNotice
+          tone="warning"
+          title="Keep it legal and safe."
+          description="Do not post fake documents, fixer services, bribery, dangerous tasks, or anything that bypasses legal processes."
+        />
+      </View>
 
-                <TextField
-                    label="Budget"
-                    placeholder="Example: ₱500 - ₱1,000"
-                    keyboardType="default"
-                />
-            </View>
+      <View className="mt-8 gap-3 pb-2">
+        <Button
+          title="Post job"
+          onPress={() => router.replace("/customer/job-posted")}
+        />
 
-            <View className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-4">
-                <Text className="text-sm font-semibold text-amber-900">
-                    Keep it legal and safe.
-                </Text>
-
-                <Text className="mt-2 text-sm leading-5 text-amber-900">
-                    Do not post requests involving fake documents, fixer services,
-                    bribery, dangerous items, or anything that bypasses legal processes.
-                </Text>
-            </View>
-
-            <View className="mt-8 gap-3 pb-2">
-                <Button
-                    title="Post job"
-                    onPress={() => router.replace("/customer/job-posted")}
-                />
-
-                <Button
-                    title="Back"
-                    variant="secondary"
-                    onPress={() => router.back()}
-                />
-            </View>
-        </ScrollScreen>
-    );
+        <Button
+          title="Back"
+          variant="secondary"
+          onPress={() => router.back()}
+        />
+      </View>
+    </ScrollScreen>
+  );
 }
