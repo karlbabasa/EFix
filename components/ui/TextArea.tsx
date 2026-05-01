@@ -14,7 +14,7 @@ export function TextArea({
 }: TextAreaProps) {
   return (
     <View className={`w-full ${className}`}>
-      <Text className="mb-2 text-sm font-medium text-slate-700">
+      <Text className="mb-2 text-sm font-medium text-[#374151]">
         {label}
       </Text>
 
@@ -22,15 +22,17 @@ export function TextArea({
         multiline
         textAlignVertical="top"
         className={`
-          min-h-28 rounded-xl border bg-white px-4 py-3 text-[15px] text-slate-950
-          ${error ? "border-red-400" : "border-slate-200"}
+          min-h-28 rounded-xl border bg-white px-4 py-3 text-[15px] text-[#111827]
+          ${error ? "border-[#DC2626]" : "border-[#E5E7EB]"}
         `}
-        placeholderTextColor="#94a3b8"
+        placeholderTextColor="#9CA3AF"
         {...props}
       />
 
       {error ? (
-        <Text className="mt-2 text-sm font-medium text-red-600">{error}</Text>
+        <Text className="mt-2 text-sm font-medium text-[#DC2626]">
+          {error}
+        </Text>
       ) : null}
     </View>
   );

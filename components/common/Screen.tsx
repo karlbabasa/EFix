@@ -14,7 +14,7 @@ export function Screen({
   contentClassName = "",
 }: ScreenProps) {
   return (
-    <SafeAreaView className={`flex-1 bg-[#F8FAFC] ${className}`}>
+    <SafeAreaView className={`flex-1 bg-[#F7F4EF] ${className}`}>
       <View className={`flex-1 px-5 py-5 ${contentClassName}`}>
         {children}
       </View>

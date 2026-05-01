@@ -95,8 +95,14 @@ export default function CustomerJobStatusScreen() {
                     />
 
                     <Button
-                        title="Back to customer home"
+                        title="Report an issue"
                         variant="secondary"
+                        onPress={() => router.push("/report")}
+                    />
+
+                    <Button
+                        title="Back to customer home"
+                        variant="ghost"
                         onPress={() => router.replace("/customer/home")}
                     />
                 </View>

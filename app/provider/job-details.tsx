@@ -113,8 +113,14 @@ export default function ProviderJobDetailsScreen() {
                 />
 
                 <Button
-                    title="Back"
+                    title="Report this job"
                     variant="secondary"
+                    onPress={() => router.push("/report")}
+                />
+
+                <Button
+                    title="Back"
+                    variant="ghost"
                     onPress={() => router.back()}
                 />
             </View>

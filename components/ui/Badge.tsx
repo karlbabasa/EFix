@@ -9,19 +9,19 @@ type BadgeProps = {
 };
 
 const badgeClasses: Record<BadgeTone, string> = {
-  neutral: "bg-slate-100",
-  info: "bg-slate-100",
-  success: "bg-emerald-50",
-  warning: "bg-amber-50",
-  danger: "bg-red-50",
+  neutral: "bg-[#F3F4F6]",
+  info: "bg-[#EEF2FF]",
+  success: "bg-[#ECFDF5]",
+  warning: "bg-[#FEF3C7]",
+  danger: "bg-[#FEE2E2]",
 };
 
 const textClasses: Record<BadgeTone, string> = {
-  neutral: "text-slate-600",
-  info: "text-slate-700",
-  success: "text-emerald-700",
-  warning: "text-amber-800",
-  danger: "text-red-700",
+  neutral: "text-[#4B5563]",
+  info: "text-[#3730A3]",
+  success: "text-[#15803D]",
+  warning: "text-[#92400E]",
+  danger: "text-[#B91C1C]",
 };
 
 export function Badge({ label, tone = "neutral", className = "" }: BadgeProps) {

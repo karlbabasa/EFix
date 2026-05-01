@@ -14,7 +14,7 @@ export function ScrollScreen({
   contentClassName = "",
 }: ScrollScreenProps) {
   return (
-    <SafeAreaView className={`flex-1 bg-[#F8FAFC] ${className}`}>
+    <SafeAreaView className={`flex-1 bg-[#F7F4EF] ${className}`}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}

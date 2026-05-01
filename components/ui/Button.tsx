@@ -13,16 +13,16 @@ type ButtonProps = PressableProps & {
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bg-slate-950",
-  secondary: "bg-white border border-slate-200",
+  primary: "bg-[#111827]",
+  secondary: "bg-white border border-[#E5E7EB]",
   ghost: "bg-transparent",
-  danger: "bg-red-600",
+  danger: "bg-[#DC2626]",
 };
 
 const textVariantClasses: Record<ButtonVariant, string> = {
   primary: "text-white",
-  secondary: "text-slate-900",
-  ghost: "text-slate-600",
+  secondary: "text-[#111827]",
+  ghost: "text-[#4B5563]",
   danger: "text-white",
 };
 
@@ -65,7 +65,7 @@ export function Button({
     >
       {loading ? (
         <ActivityIndicator
-          color={variant === "secondary" || variant === "ghost" ? "#0f172a" : "#ffffff"}
+          color={variant === "secondary" || variant === "ghost" ? "#111827" : "#ffffff"}
         />
       ) : (
         <Text
