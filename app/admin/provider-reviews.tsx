@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
+import { EmptyState } from "@/components/common/EmptyState";
 import { demoProviderApplications } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
@@ -31,22 +32,29 @@ export default function AdminProviderReviewsScreen() {
       />
 
       <View className="mt-8 gap-3">
-        {demoProviderApplications.map((application) => (
-          <AdminReviewCard
-            key={application.id}
-            name={application.name}
-            service={application.service}
-            location={application.location}
-            submittedAt={application.submittedAt}
-            status={formatStatus(application.status)}
-            onReview={() =>
-              router.push({
-                pathname: "/admin/provider-review-detail",
-                params: { providerId: application.id },
-              })
-            }
+        {demoProviderApplications.length > 0 ? (
+          demoProviderApplications.map((application) => (
+            <AdminReviewCard
+              key={application.id}
+              name={application.name}
+              service={application.service}
+              location={application.location}
+              submittedAt={application.submittedAt}
+              status={formatStatus(application.status)}
+              onReview={() =>
+                router.push({
+                  pathname: "/admin/provider-review-detail",
+                  params: { providerId: application.id },
+                })
+              }
+            />
+          ))
+        ) : (
+          <EmptyState
+            title="No provider applications"
+            description="New provider applications will appear here when submitted."
           />
-        ))}
+        )}
       </View>
     </ScrollScreen>
   );
