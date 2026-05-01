@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
 import { Screen } from "@/components/common/Screen";
@@ -5,6 +6,8 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
 export default function Index() {
+  const router = useRouter();
+
   return (
     <Screen contentClassName="justify-center">
       <View className="rounded-[32px] bg-white p-6 shadow-sm">
@@ -19,12 +22,21 @@ export default function Index() {
         </Text>
 
         <Text className="mt-3 text-base leading-6 text-slate-500">
-          Need something fixed, cleaned, carried, or processed? Find trusted help nearby.
+          Find someone nearby for repairs, cleaning, errands, and document
+          assistance.
         </Text>
 
         <View className="mt-8 gap-3">
-          <Button title="I need help" onPress={() => {}} />
-          <Button title="I offer services" variant="secondary" onPress={() => {}} />
+          <Button
+            title="Get started"
+            onPress={() => router.push("/role-selection")}
+          />
+
+          <Button
+            title="I already have an account"
+            variant="secondary"
+            onPress={() => {}}
+          />
         </View>
       </View>
     </Screen>
