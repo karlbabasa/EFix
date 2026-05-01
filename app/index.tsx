@@ -2,43 +2,53 @@ import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
 import { Screen } from "@/components/common/Screen";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
 export default function Index() {
-    const router = useRouter();
+  const router = useRouter();
 
-    return (
-        <Screen contentClassName="justify-center">
-            <View className="rounded-[32px] bg-white p-6 shadow-sm">
-                <Badge label="Service marketplace" tone="info" />
+  return (
+    <Screen>
+      <View className="flex-1 justify-between">
+        <View>
+          <View className="h-14 w-14 items-center justify-center rounded-2xl bg-slate-950">
+            <Text className="text-xl font-extrabold text-white">EF</Text>
+          </View>
 
-                <View className="mt-6 h-20 w-20 items-center justify-center rounded-3xl bg-blue-600">
-                    <Text className="text-3xl font-extrabold text-white">EF</Text>
-                </View>
+          <Text className="mt-8 text-4xl font-extrabold leading-tight text-slate-950">
+            Get help from people nearby.
+          </Text>
 
-                <Text className="mt-6 text-4xl font-extrabold text-slate-950">
-                    E-Fix
-                </Text>
+          <Text className="mt-4 text-base leading-6 text-slate-600">
+            E-Fix connects customers with verified service providers for repairs,
+            cleaning, errands, and document assistance.
+          </Text>
 
-                <Text className="mt-3 text-base leading-6 text-slate-500">
-                    Find someone nearby for repairs, cleaning, errands, and document
-                    assistance.
-                </Text>
+          <View className="mt-8 rounded-2xl border border-slate-200 bg-white p-4">
+            <Text className="text-sm font-semibold text-slate-950">
+              For safety, providers are reviewed first.
+            </Text>
 
-                <View className="mt-8 gap-3">
-                    <Button
-                        title="Get started"
-                        onPress={() => router.push("/role-selection")}
-                    />
+            <Text className="mt-2 text-sm leading-5 text-slate-500">
+              Providers must submit their profile and documents before they can
+              accept jobs.
+            </Text>
+          </View>
+        </View>
 
-                    <Button
-                        title="I already have an account"
-                        variant="secondary"
-                        onPress={() => router.push("/auth/sign-in")}
-                    />
-                </View>
-            </View>
-        </Screen>
-    );
+        <View className="gap-3 pb-2">
+          <Button
+            title="Get started"
+            onPress={() => router.push("/role-selection")}
+          />
+
+          <Button
+            title="I already have an account"
+            variant="secondary"
+            onPress={() => router.push("/auth/sign-in")}
+          />
+        </View>
+      </View>
+    </Screen>
+  );
 }
