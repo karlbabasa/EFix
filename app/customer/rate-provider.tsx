@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
+import { Text, View } from "react-native";
 
+import { AuthNotice } from "@/components/auth/AuthNotice";
+import { FormCard } from "@/components/auth/FormCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { StarRating } from "@/components/customer/jobs/StarRating";
 import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/TextArea";
 
@@ -11,58 +14,39 @@ export default function RateProviderScreen() {
   const [rating, setRating] = useState(0);
 
   return (
-    <ScrollScreen>
+    <ScrollScreen className="bg-slate-50">
       <Text className="text-sm font-semibold text-slate-500">
         Job completed
       </Text>
 
       <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
-        How was the service?
+        Rate the provider.
       </Text>
 
       <Text className="mt-3 text-base leading-6 text-slate-600">
-        Your rating helps other customers choose reliable providers.
+        Your feedback helps keep provider quality visible for future customers.
       </Text>
 
-      <View className="mt-8 rounded-2xl border border-slate-200 bg-white p-5">
-        <Text className="text-base font-semibold text-slate-950">
-          Rate the provider
-        </Text>
-
-        <View className="mt-5 flex-row gap-3">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <Pressable
-              key={star}
-              onPress={() => setRating(star)}
-              className="active:opacity-70"
-            >
-              <Text className="text-4xl">
-                {star <= rating ? "★" : "☆"}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        <Text className="mt-3 text-sm text-slate-500">
-          {rating > 0 ? `${rating} out of 5` : "Tap a star to rate"}
-        </Text>
+      <View className="mt-8">
+        <FormCard title="Service rating">
+          <StarRating rating={rating} onChange={setRating} />
+        </FormCard>
       </View>
 
       <View className="mt-5">
-        <TextArea
-          label="Review"
-          placeholder="Write a short review. Example: Arrived on time and fixed the issue properly."
-        />
+        <FormCard title="Review">
+          <TextArea
+            label="Comment"
+            placeholder="Example: Arrived on time and fixed the issue properly."
+          />
+        </FormCard>
       </View>
 
-      <View className="mt-8 rounded-2xl border border-slate-200 bg-white p-4">
-        <Text className="text-sm font-semibold text-slate-950">
-          Fair rating only
-        </Text>
-
-        <Text className="mt-2 text-sm leading-5 text-slate-500">
-          Rate based on the completed job. Reports and disputes will have a separate flow later.
-        </Text>
+      <View className="mt-5">
+        <AuthNotice
+          title="Rate fairly."
+          description="Use the report flow for serious issues, scams, unsafe behavior, or payment disputes."
+        />
       </View>
 
       <View className="mt-8 gap-3 pb-2">

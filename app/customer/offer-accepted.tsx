@@ -1,56 +1,28 @@
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
 
 import { Screen } from "@/components/common/Screen";
-import { Button } from "@/components/ui/Button";
+import { ConfirmationScreenContent } from "@/components/common/feedback/ConfirmationScreenContent";
 
 export default function OfferAcceptedScreen() {
-    const router = useRouter();
+  const router = useRouter();
 
-    return (
-        <Screen>
-            <View className="flex-1 justify-between">
-                <View>
-                    <View className="h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100">
-                        <Text className="text-2xl">✓</Text>
-                    </View>
-
-                    <Text className="mt-8 text-sm font-semibold text-slate-500">
-                        Offer accepted
-                    </Text>
-
-                    <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
-                        Provider selected.
-                    </Text>
-
-                    <Text className="mt-3 text-base leading-6 text-slate-600">
-                        The job is now accepted. Next, we’ll add job tracking and completion status.
-                    </Text>
-
-                    <View className="mt-8 rounded-2xl border border-slate-200 bg-white p-5">
-                        <Text className="text-base font-semibold text-slate-950">
-                            Job status
-                        </Text>
-
-                        <Text className="mt-3 text-sm leading-5 text-slate-600">
-                            Accepted — waiting for the provider to start the job.
-                        </Text>
-                    </View>
-                </View>
-
-                <View className="gap-3 pb-2">
-                    <Button
-                        title="Track job"
-                        onPress={() => router.replace("/customer/job-status")}
-                    />
-
-                    <Button
-                        title="View offers again"
-                        variant="secondary"
-                        onPress={() => router.replace("/customer/offers")}
-                    />
-                </View>
-            </View>
-        </Screen>
-    );
+  return (
+    <Screen className="bg-slate-50">
+      <ConfirmationScreenContent
+        eyebrow="Offer accepted"
+        title="Provider selected."
+        description="The job is now accepted. You can track the request until it is completed."
+        cardTitle="Current job status"
+        steps={[
+          { text: "Offer accepted." },
+          { text: "Waiting for the provider to start the job." },
+          { text: "Mark the job completed after the work is done." },
+        ]}
+        primaryActionTitle="Track job"
+        secondaryActionTitle="View offers again"
+        onPrimaryAction={() => router.replace("/customer/job-status")}
+        onSecondaryAction={() => router.replace("/customer/offers")}
+      />
+    </Screen>
+  );
 }
