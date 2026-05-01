@@ -7,75 +7,77 @@ import { TextArea } from "@/components/ui/TextArea";
 import { TextField } from "@/components/ui/TextField";
 
 export default function ProviderProfileScreen() {
-    const router = useRouter();
+  const router = useRouter();
 
-    return (
-        <ScrollScreen>
-            <Text className="text-3xl font-extrabold text-slate-950">
-                Provider profile
-            </Text>
+  return (
+    <ScrollScreen>
+      <Text className="text-sm font-semibold text-slate-500">
+        Provider profile
+      </Text>
 
-            <Text className="mt-3 text-base leading-6 text-slate-500">
-                Tell customers what you do. This information will be reviewed together
-                with your documents.
-            </Text>
+      <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
+        Tell us what service you offer.
+      </Text>
 
-            <View className="mt-8 gap-5">
-                <TextField
-                    label="Full name"
-                    placeholder="Juan Dela Cruz"
-                    autoCapitalize="words"
-                />
+      <Text className="mt-3 text-base leading-6 text-slate-600">
+        This helps admin review your application and helps customers understand your service later.
+      </Text>
 
-                <TextField
-                    label="Mobile number"
-                    placeholder="09XX XXX XXXX"
-                    keyboardType="phone-pad"
-                />
+      <View className="mt-8 gap-5">
+        <TextField
+          label="Full name"
+          placeholder="Juan Dela Cruz"
+          autoCapitalize="words"
+        />
 
-                <TextField
-                    label="Email address"
-                    placeholder="you@example.com"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                />
+        <TextField
+          label="Mobile number"
+          placeholder="09XX XXX XXXX"
+          keyboardType="phone-pad"
+        />
 
-                <TextField
-                    label="Main service"
-                    placeholder="Example: Plumbing, Cleaning, Document assistance"
-                    autoCapitalize="words"
-                />
+        <TextField
+          label="Email address"
+          placeholder="you@example.com"
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
 
-                <TextField
-                    label="Service area"
-                    placeholder="Example: Dasmariñas, Cavite"
-                    autoCapitalize="words"
-                />
+        <TextField
+          label="Main service"
+          placeholder="Plumbing, cleaning, document assistance"
+          autoCapitalize="words"
+        />
 
-                <TextField
-                    label="Years of experience"
-                    placeholder="Example: 2 years"
-                    keyboardType="default"
-                />
+        <TextField
+          label="Service area"
+          placeholder="Dasmariñas, Cavite"
+          autoCapitalize="words"
+        />
 
-                <TextArea
-                    label="Short service description"
-                    placeholder="Example: I handle basic plumbing repairs, faucet replacement, pipe leaks, and home maintenance requests."
-                />
-            </View>
+        <TextField
+          label="Experience"
+          placeholder="Example: 2 years"
+        />
 
-            <View className="mt-8 gap-3">
-                <Button
-                    title="Continue to documents"
-                    onPress={() => router.push("/auth/provider-documents")}
-                />
+        <TextArea
+          label="Short description"
+          placeholder="Briefly describe what you usually handle."
+        />
+      </View>
 
-                <Button
-                    title="Back"
-                    variant="secondary"
-                    onPress={() => router.back()}
-                />
-            </View>
-        </ScrollScreen>
-    );
+      <View className="mt-8 gap-3 pb-2">
+        <Button
+          title="Continue to documents"
+          onPress={() => router.push("/auth/provider-documents")}
+        />
+
+        <Button
+          title="Back"
+          variant="secondary"
+          onPress={() => router.back()}
+        />
+      </View>
+    </ScrollScreen>
+  );
 }
