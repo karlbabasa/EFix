@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
 import { Screen } from "@/components/common/Screen";
@@ -5,6 +6,8 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
 export default function ProviderStartScreen() {
+  const router = useRouter();
+
   return (
     <Screen>
       <View className="flex-1 justify-center">
@@ -19,8 +22,16 @@ export default function ProviderStartScreen() {
         </Text>
 
         <View className="mt-8 gap-3">
-          <Button title="Start application" onPress={() => {}} />
-          <Button title="I already applied" variant="secondary" onPress={() => {}} />
+          <Button
+            title="Start application"
+            onPress={() => router.push("/auth/provider-register")}
+          />
+
+          <Button
+            title="I already have an account"
+            variant="secondary"
+            onPress={() => router.push("/auth/sign-in")}
+          />
         </View>
       </View>
     </Screen>
