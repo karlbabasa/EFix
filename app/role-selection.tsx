@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
 import { Screen } from "@/components/common/Screen";
@@ -8,15 +9,19 @@ const roles = [
     title: "I need help",
     description: "Book a service provider or post a job request.",
     badge: "Customer",
+    href: "/customer/start",
   },
   {
     title: "I offer services",
     description: "Register as a provider and submit your documents for review.",
     badge: "Provider",
+    href: "/provider/start",
   },
-];
+] as const;
 
 export default function RoleSelectionScreen() {
+  const router = useRouter();
+
   return (
     <Screen>
       <View className="flex-1">
@@ -36,7 +41,7 @@ export default function RoleSelectionScreen() {
             <Pressable
               key={role.title}
               className="rounded-3xl border border-slate-200 bg-white p-5 active:opacity-80"
-              onPress={() => {}}
+              onPress={() => router.push(role.href)}
             >
               <View className="flex-row items-start justify-between gap-4">
                 <View className="flex-1">
