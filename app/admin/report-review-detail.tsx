@@ -1,26 +1,13 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Alert, Pressable, Text, View } from "react-native";
 
+import { DetailRow } from "@/components/common/DetailRow";
 import { demoReports } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
 import { FormCard } from "@/components/auth/FormCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { Button } from "@/components/ui/Button";
-
-function DetailRow({ label, value }: { label: string; value: string }) {
-  return (
-    <View className="flex-row justify-between gap-4 border-b border-slate-100 py-3 last:border-b-0">
-      <Text className="text-sm font-semibold text-slate-500">
-        {label}
-      </Text>
-
-      <Text className="flex-1 text-right text-sm font-semibold text-slate-800">
-        {value}
-      </Text>
-    </View>
-  );
-}
 
 function formatStatus(status: string) {
   return status.replace("_", " ");
