@@ -1,57 +1,78 @@
+import { useState } from "react";
 import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
-import { EmptyState } from "@/components/common/EmptyState";
 import { demoJobs } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
+import { EmptyState } from "@/components/common/EmptyState";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { SearchBar } from "@/components/common/SearchBar";
 import { ProviderJobCard } from "@/components/provider/jobs/ProviderJobCard";
 
 export default function ProviderOpenJobsScreen() {
-    const router = useRouter();
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  const filteredJobs = demoJobs.filter((job) => {
+    const query = search.toLowerCase();
 
     return (
-        <ScrollScreen className="bg-slate-50">
-            <Pressable
-                className="mb-6 self-start active:opacity-70"
-                onPress={() => router.back()}
-            >
-                <Text className="text-sm font-semibold text-slate-600">
-                    ← Back
-                </Text>
-            </Pressable>
-
-            <AuthHeader
-                eyebrow="Open jobs"
-                title="Available requests nearby."
-                description="Review sample customer requests and send an offer if the job matches your service."
-            />
-
-            <View className="mt-8 gap-3">
-                {demoJobs.length > 0 ? (
-                    demoJobs.map((job) => (
-                        <ProviderJobCard
-                            key={job.id}
-                            title={job.title}
-                            category={job.category}
-                            location={job.location}
-                            budget={job.budget}
-                            schedule={job.schedule}
-                            onViewDetails={() =>
-                                router.push({
-                                    pathname: "/provider/job-details",
-                                    params: { jobId: job.id },
-                                })
-                            }
-                        />
-                    ))
-                ) : (
-                    <EmptyState
-                        title="No open jobs yet"
-                        description="New customer requests will appear here once they are posted."
-                    />
-                )}
-            </View>
-        </ScrollScreen>
+      job.title.toLowerCase().includes(query) ||
+      job.category.toLowerCase().includes(query) ||
+      job.location.toLowerCase().includes(query)
     );
+  });
+
+  return (
+    <ScrollScreen className="bg-slate-50">
+      <Pressable
+        className="mb-6 self-start active:opacity-70"
+        onPress={() => router.back()}
+      >
+        <Text className="text-sm font-semibold text-slate-600">
+          ← Back
+        </Text>
+      </Pressable>
+
+      <AuthHeader
+        eyebrow="Open jobs"
+        title="Available requests nearby."
+        description="Review sample customer requests and send an offer if the job matches your service."
+      />
+
+      <View className="mt-6">
+        <SearchBar
+          value={search}
+          placeholder="Search by job, service, or location"
+          onChangeText={setSearch}
+        />
+      </View>
+
+      <View className="mt-6 gap-3">
+        {filteredJobs.length > 0 ? (
+          filteredJobs.map((job) => (
+            <ProviderJobCard
+              key={job.id}
+              title={job.title}
+              category={job.category}
+              location={job.location}
+              budget={job.budget}
+              schedule={job.schedule}
+              onViewDetails={() =>
+                router.push({
+                  pathname: "/provider/job-details",
+                  params: { jobId: job.id },
+                })
+              }
+            />
+          ))
+        ) : (
+          <EmptyState
+            title="No matching jobs"
+            description="Try a different service, location, or job title."
+          />
+        )}
+      </View>
+    </ScrollScreen>
+  );
 }

@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
-import { EmptyState } from "@/components/common/EmptyState";
 import { demoProviderApplications } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
-import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { AdminReviewCard } from "@/components/admin/reviews/AdminReviewCard";
+import { EmptyState } from "@/components/common/EmptyState";
+import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { SearchBar } from "@/components/common/SearchBar";
 
 function formatStatus(status: string) {
   return status.replace("_", " ");
@@ -13,6 +15,18 @@ function formatStatus(status: string) {
 
 export default function AdminProviderReviewsScreen() {
   const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  const filteredApplications = demoProviderApplications.filter((application) => {
+    const query = search.toLowerCase();
+
+    return (
+      application.name.toLowerCase().includes(query) ||
+      application.service.toLowerCase().includes(query) ||
+      application.location.toLowerCase().includes(query) ||
+      application.status.toLowerCase().includes(query)
+    );
+  });
 
   return (
     <ScrollScreen className="bg-slate-50">
@@ -31,9 +45,17 @@ export default function AdminProviderReviewsScreen() {
         description="Review provider profiles and submitted legal documents before approval."
       />
 
-      <View className="mt-8 gap-3">
-        {demoProviderApplications.length > 0 ? (
-          demoProviderApplications.map((application) => (
+      <View className="mt-6">
+        <SearchBar
+          value={search}
+          placeholder="Search by name, service, or location"
+          onChangeText={setSearch}
+        />
+      </View>
+
+      <View className="mt-6 gap-3">
+        {filteredApplications.length > 0 ? (
+          filteredApplications.map((application) => (
             <AdminReviewCard
               key={application.id}
               name={application.name}
@@ -51,8 +73,8 @@ export default function AdminProviderReviewsScreen() {
           ))
         ) : (
           <EmptyState
-            title="No provider applications"
-            description="New provider applications will appear here when submitted."
+            title="No matching applications"
+            description="Try a different provider name, service, location, or status."
           />
         )}
       </View>
