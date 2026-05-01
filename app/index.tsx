@@ -8,30 +8,38 @@ export default function Index() {
   const router = useRouter();
 
   return (
-    <Screen>
+    <Screen className="bg-slate-50">
       <View className="flex-1 justify-between">
         <View>
-          <View className="h-14 w-14 items-center justify-center rounded-2xl bg-slate-950">
-            <Text className="text-xl font-extrabold text-white">EF</Text>
+          <View className="flex-row items-center justify-between">
+            <View className="h-12 w-12 items-center justify-center rounded-2xl bg-slate-950">
+              <Text className="text-base font-extrabold text-white">EF</Text>
+            </View>
+
+            <Text className="text-sm font-semibold text-slate-500">
+              Service marketplace
+            </Text>
           </View>
 
-          <Text className="mt-8 text-4xl font-extrabold leading-tight text-slate-950">
-            Get help from people nearby.
-          </Text>
+          <View className="mt-12">
+            <Text className="text-4xl font-extrabold leading-tight text-slate-950">
+              Book trusted help for local services.
+            </Text>
 
-          <Text className="mt-4 text-base leading-6 text-slate-600">
-            E-Fix connects customers with verified service providers for repairs,
-            cleaning, errands, and document assistance.
-          </Text>
+            <Text className="mt-4 text-base leading-6 text-slate-600">
+              Post jobs, compare offers, and work with reviewed providers for
+              repairs, cleaning, errands, and document assistance.
+            </Text>
+          </View>
 
-          <View className="mt-8 rounded-2xl border border-slate-200 bg-white p-4">
-            <Text className="text-sm font-semibold text-slate-950">
-              For safety, providers are reviewed first.
+          <View className="mt-8 rounded-3xl border border-slate-200 bg-white p-5">
+            <Text className="text-base font-bold text-slate-950">
+              Providers are reviewed first.
             </Text>
 
             <Text className="mt-2 text-sm leading-5 text-slate-500">
-              Providers must submit their profile and documents before they can
-              accept jobs.
+              Provider accounts must submit profile details and documents before
+              accepting jobs.
             </Text>
           </View>
         </View>
