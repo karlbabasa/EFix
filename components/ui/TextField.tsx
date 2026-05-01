@@ -14,13 +14,13 @@ export function TextField({
 }: TextFieldProps) {
   return (
     <View className={`w-full ${className}`}>
-      <Text className="mb-2 text-sm font-semibold text-slate-700">
+      <Text className="mb-2 text-sm font-medium text-slate-700">
         {label}
       </Text>
 
       <TextInput
         className={`
-          h-14 rounded-2xl border bg-white px-4 text-base text-slate-950
+          h-12 rounded-xl border bg-white px-4 text-[15px] text-slate-950
           ${error ? "border-red-400" : "border-slate-200"}
         `}
         placeholderTextColor="#94a3b8"

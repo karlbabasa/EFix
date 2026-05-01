@@ -13,7 +13,7 @@ type ButtonProps = PressableProps & {
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bg-blue-600",
+  primary: "bg-slate-950",
   secondary: "bg-white border border-slate-200",
   ghost: "bg-transparent",
   danger: "bg-red-600",
@@ -22,20 +22,20 @@ const variantClasses: Record<ButtonVariant, string> = {
 const textVariantClasses: Record<ButtonVariant, string> = {
   primary: "text-white",
   secondary: "text-slate-900",
-  ghost: "text-slate-700",
+  ghost: "text-slate-600",
   danger: "text-white",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
   sm: "h-10 px-4",
-  md: "h-14 px-5",
-  lg: "h-16 px-6",
+  md: "h-12 px-5",
+  lg: "h-14 px-6",
 };
 
 const textSizeClasses: Record<ButtonSize, string> = {
   sm: "text-sm",
-  md: "text-base",
-  lg: "text-lg",
+  md: "text-[15px]",
+  lg: "text-base",
 };
 
 export function Button({
@@ -58,17 +58,19 @@ export function Button({
         ${sizeClasses[size]}
         ${variantClasses[variant]}
         ${isDisabled ? "opacity-50" : "active:opacity-80"}
-        items-center justify-center rounded-2xl
+        items-center justify-center rounded-xl
         ${className}
       `}
       {...props}
     >
       {loading ? (
-        <ActivityIndicator color={variant === "secondary" || variant === "ghost" ? "#0f172a" : "#ffffff"} />
+        <ActivityIndicator
+          color={variant === "secondary" || variant === "ghost" ? "#0f172a" : "#ffffff"}
+        />
       ) : (
         <Text
           className={`
-            font-bold
+            font-semibold
             ${textSizeClasses[size]}
             ${textVariantClasses[variant]}
           `}

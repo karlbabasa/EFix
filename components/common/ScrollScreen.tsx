@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type ScrollScreenProps = {
@@ -14,13 +14,13 @@ export function ScrollScreen({
   contentClassName = "",
 }: ScrollScreenProps) {
   return (
-    <SafeAreaView className={`flex-1 bg-slate-50 ${className}`}>
+    <SafeAreaView className={`flex-1 bg-[#F8FAFC] ${className}`}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        contentContainerClassName={`flex-grow px-5 py-6 ${contentClassName}`}
+        contentContainerClassName={`flex-grow px-5 py-5 ${contentClassName}`}
       >
-        <View>{children}</View>
+        {children}
       </ScrollView>
     </SafeAreaView>
   );
