@@ -9,13 +9,17 @@ export default function CustomerRegisterScreen() {
   const router = useRouter();
 
   return (
-    <ScrollScreen contentClassName="justify-center">
-      <Text className="text-3xl font-extrabold text-slate-950">
-        Create customer account
+    <ScrollScreen>
+      <Text className="text-sm font-semibold text-slate-500">
+        Customer account
       </Text>
 
-      <Text className="mt-3 text-base leading-6 text-slate-500">
-        Use this account to search for providers, post jobs, and track your requests.
+      <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
+        Create your account.
+      </Text>
+
+      <Text className="mt-3 text-base leading-6 text-slate-600">
+        Use this to post jobs, contact providers, and track requests.
       </Text>
 
       <View className="mt-8 gap-5">
@@ -42,16 +46,28 @@ export default function CustomerRegisterScreen() {
           label="Password"
           placeholder="Create a password"
           secureTextEntry
+          autoCapitalize="none"
         />
 
         <TextField
           label="Confirm password"
           placeholder="Repeat your password"
           secureTextEntry
+          autoCapitalize="none"
         />
       </View>
 
-      <View className="mt-8 gap-3">
+      <View className="mt-8 rounded-2xl border border-slate-200 bg-white p-4">
+        <Text className="text-sm font-semibold text-slate-950">
+          Keep requests legal and safe.
+        </Text>
+
+        <Text className="mt-2 text-sm leading-5 text-slate-500">
+          E-Fix does not allow fake documents, fixer services, bribery, or unsafe job requests.
+        </Text>
+      </View>
+
+      <View className="mt-8 gap-3 pb-2">
         <Button title="Create account" onPress={() => {}} />
 
         <Button
@@ -60,10 +76,6 @@ export default function CustomerRegisterScreen() {
           onPress={() => router.back()}
         />
       </View>
-
-      <Text className="mt-6 text-center text-xs leading-5 text-slate-400">
-        By continuing, you agree to follow E-Fix rules and avoid illegal or unsafe job requests.
-      </Text>
     </ScrollScreen>
   );
 }
