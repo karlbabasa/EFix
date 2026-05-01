@@ -1,6 +1,9 @@
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
+import { AuthHeader } from "@/components/auth/AuthHeader";
+import { AuthNotice } from "@/components/auth/AuthNotice";
+import { DocumentRequirementCard } from "@/components/auth/DocumentRequirementCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { Button } from "@/components/ui/Button";
 
@@ -36,64 +39,31 @@ export default function ProviderDocumentsScreen() {
   const router = useRouter();
 
   return (
-    <ScrollScreen>
-      <Text className="text-sm font-semibold text-slate-500">
-        Document review
-      </Text>
-
-      <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
-        Upload your documents.
-      </Text>
-
-      <Text className="mt-3 text-base leading-6 text-slate-600">
-        We’ll use these to review your provider application. These are not shown to customers.
-      </Text>
+    <ScrollScreen className="bg-slate-50">
+      <AuthHeader
+        eyebrow="Document review"
+        title="Upload your documents."
+        description="These files help admin verify your provider application. They should not be shown to customers."
+      />
 
       <View className="mt-8 gap-3">
         {documents.map((document) => (
-          <View
+          <DocumentRequirementCard
             key={document.title}
-            className="rounded-2xl border border-slate-200 bg-white p-5"
-          >
-            <View className="flex-row items-start justify-between gap-4">
-              <View className="flex-1">
-                <Text className="text-base font-semibold text-slate-950">
-                  {document.title}
-                </Text>
-
-                <Text className="mt-1 text-sm leading-5 text-slate-500">
-                  {document.description}
-                </Text>
-              </View>
-
-              <Text
-                className={`text-xs font-semibold ${
-                  document.required ? "text-red-600" : "text-slate-400"
-                }`}
-              >
-                {document.required ? "Required" : "Optional"}
-              </Text>
-            </View>
-
-            <View className="mt-4">
-              <Button
-                title="Choose file"
-                variant="secondary"
-                onPress={() => {}}
-              />
-            </View>
-          </View>
+            title={document.title}
+            description={document.description}
+            required={document.required}
+            onChooseFile={() => {}}
+          />
         ))}
       </View>
 
-      <View className="mt-5 rounded-2xl border border-slate-200 bg-white p-4">
-        <Text className="text-sm font-semibold text-slate-950">
-          Privacy note
-        </Text>
-
-        <Text className="mt-2 text-sm leading-5 text-slate-500">
-          Only authorized admins should review provider documents. Later, we’ll store these privately and avoid public file links.
-        </Text>
+      <View className="mt-5">
+        <AuthNotice
+          tone="warning"
+          title="Store documents carefully later."
+          description="When backend storage is added, these files should be private and accessible only to authorized admin users."
+        />
       </View>
 
       <View className="mt-8 gap-3 pb-2">

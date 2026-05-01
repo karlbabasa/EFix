@@ -1,6 +1,9 @@
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
+import { AuthHeader } from "@/components/auth/AuthHeader";
+import { AuthNotice } from "@/components/auth/AuthNotice";
+import { FormCard } from "@/components/auth/FormCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/TextArea";
@@ -10,59 +13,70 @@ export default function ProviderProfileScreen() {
   const router = useRouter();
 
   return (
-    <ScrollScreen>
-      <Text className="text-sm font-semibold text-slate-500">
-        Provider profile
-      </Text>
+    <ScrollScreen className="bg-slate-50">
+      <AuthHeader
+        eyebrow="Provider profile"
+        title="Tell us what you offer."
+        description="This information helps admin review your application and helps customers understand your service later."
+      />
 
-      <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
-        Tell us what service you offer.
-      </Text>
+      <View className="mt-8">
+        <FormCard title="Basic information">
+          <View className="gap-5">
+            <TextField
+              label="Full name"
+              placeholder="Juan Dela Cruz"
+              autoCapitalize="words"
+            />
 
-      <Text className="mt-3 text-base leading-6 text-slate-600">
-        This helps admin review your application and helps customers understand your service later.
-      </Text>
+            <TextField
+              label="Mobile number"
+              placeholder="09XX XXX XXXX"
+              keyboardType="phone-pad"
+            />
 
-      <View className="mt-8 gap-5">
-        <TextField
-          label="Full name"
-          placeholder="Juan Dela Cruz"
-          autoCapitalize="words"
-        />
+            <TextField
+              label="Email address"
+              placeholder="you@example.com"
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+          </View>
+        </FormCard>
+      </View>
 
-        <TextField
-          label="Mobile number"
-          placeholder="09XX XXX XXXX"
-          keyboardType="phone-pad"
-        />
+      <View className="mt-5">
+        <FormCard title="Service details">
+          <View className="gap-5">
+            <TextField
+              label="Main service"
+              placeholder="Plumbing, cleaning, document assistance"
+              autoCapitalize="words"
+            />
 
-        <TextField
-          label="Email address"
-          placeholder="you@example.com"
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+            <TextField
+              label="Service area"
+              placeholder="Dasmariñas, Cavite"
+              autoCapitalize="words"
+            />
 
-        <TextField
-          label="Main service"
-          placeholder="Plumbing, cleaning, document assistance"
-          autoCapitalize="words"
-        />
+            <TextField
+              label="Experience"
+              placeholder="Example: 2 years"
+            />
 
-        <TextField
-          label="Service area"
-          placeholder="Dasmariñas, Cavite"
-          autoCapitalize="words"
-        />
+            <TextArea
+              label="Short description"
+              placeholder="Briefly describe what jobs you usually handle."
+            />
+          </View>
+        </FormCard>
+      </View>
 
-        <TextField
-          label="Experience"
-          placeholder="Example: 2 years"
-        />
-
-        <TextArea
-          label="Short description"
-          placeholder="Briefly describe what you usually handle."
+      <View className="mt-5">
+        <AuthNotice
+          title="Review first, access later."
+          description="You can only accept real jobs after your provider account is approved."
         />
       </View>
 
