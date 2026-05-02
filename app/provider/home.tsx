@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
@@ -7,8 +8,42 @@ import { DashboardHeader } from "@/components/common/dashboard/DashboardHeader";
 import { DashboardInfoCard } from "@/components/common/dashboard/DashboardInfoCard";
 import { DashboardSummaryCard } from "@/components/common/dashboard/DashboardSummaryCard";
 
+type ProviderAction = {
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  description: string;
+  onPress: () => void;
+};
+
 export default function ProviderHomeScreen() {
   const router = useRouter();
+
+  const providerActions: ProviderAction[] = [
+    {
+      icon: "briefcase-outline",
+      title: "Open jobs",
+      description: "Browse requests",
+      onPress: () => router.push("/provider/open-jobs"),
+    },
+    {
+      icon: "send-outline",
+      title: "Offers",
+      description: "Sent offers",
+      onPress: () => router.push("/provider/offers"),
+    },
+    {
+      icon: "time-outline",
+      title: "Availability",
+      description: "Set schedule",
+      onPress: () => {},
+    },
+    {
+      icon: "warning-outline",
+      title: "Report",
+      description: "Safety help",
+      onPress: () => router.push("/report"),
+    },
+  ];
 
   return (
     <AppScrollView>
@@ -34,33 +69,15 @@ export default function ProviderHomeScreen() {
           </Text>
 
           <View className="mt-4 flex-row flex-wrap gap-3">
-            <DashboardActionTile
-              icon="⌕"
-              title="Open jobs"
-              description="Browse requests"
-              onPress={() => router.push("/provider/open-jobs")}
-            />
-
-            <DashboardActionTile
-              icon="₱"
-              title="Offers"
-              description="Sent offers"
-              onPress={() => {}}
-            />
-
-            <DashboardActionTile
-              icon="◷"
-              title="Availability"
-              description="Set schedule"
-              onPress={() => {}}
-            />
-
-            <DashboardActionTile
-              icon="!"
-              title="Report"
-              description="Safety help"
-              onPress={() => router.push("/report")}
-            />
+            {providerActions.map((action) => (
+              <DashboardActionTile
+                key={action.title}
+                icon={action.icon}
+                title={action.title}
+                description={action.description}
+                onPress={action.onPress}
+              />
+            ))}
           </View>
         </View>
 
