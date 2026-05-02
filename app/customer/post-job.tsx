@@ -5,6 +5,7 @@ import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
 import { FormCard } from "@/components/auth/FormCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
 import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/TextArea";
 import { TextField } from "@/components/ui/TextField";
@@ -13,7 +14,7 @@ export default function PostJobScreen() {
   const router = useRouter();
 
   return (
-    <ScrollScreen className="bg-slate-50">
+    <ScrollScreen className="bg-slate-50" contentClassName="pb-32">
       <AuthHeader
         eyebrow="Post a job"
         title="Tell providers what you need."
@@ -74,7 +75,7 @@ export default function PostJobScreen() {
         />
       </View>
 
-      <View className="mt-8 gap-3 pb-2">
+      <View className="mt-8 gap-3">
         <Button
           title="Post job"
           onPress={() => router.replace("/customer/job-posted")}
@@ -86,6 +87,15 @@ export default function PostJobScreen() {
           onPress={() => router.back()}
         />
       </View>
+
+      <CustomerBottomNav
+        activeTab="home"
+        onHomePress={() => router.replace("/customer/home")}
+        onJobsPress={() => router.push("/customer/jobs")}
+        onPostPress={() => router.replace("/customer/post-job")}
+        onOffersPress={() => router.push("/customer/offers")}
+        onProfilePress={() => {}}
+      />
     </ScrollScreen>
   );
 }

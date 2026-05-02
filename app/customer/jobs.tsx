@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "expo-router";
-import { Pressable, Text, View } from "react-native";
+import { View } from "react-native";
 
 import { demoJobs } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
@@ -31,15 +31,6 @@ export default function CustomerJobsScreen() {
 
   return (
     <ScrollScreen className="bg-slate-50" contentClassName="pb-32">
-      <Pressable
-        className="mb-6 self-start active:opacity-70"
-        onPress={() => router.back()}
-      >
-        <Text className="text-sm font-semibold text-slate-600">
-          ← Back
-        </Text>
-      </Pressable>
-
       <AuthHeader
         eyebrow="My jobs"
         title="Track your requests."
