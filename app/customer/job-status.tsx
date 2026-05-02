@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 
 import { Screen } from "@/components/common/Screen";
 import { StatusTimelineItem } from "@/components/customer/jobs/StatusTimelineItem";
+import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
 import { Button } from "@/components/ui/Button";
 
 const statusSteps = [
@@ -32,7 +33,7 @@ export default function CustomerJobStatusScreen() {
   const router = useRouter();
 
   return (
-    <Screen className="bg-slate-50">
+    <Screen className="bg-slate-50" contentClassName="pb-28">
       <View className="flex-1 justify-between">
         <View>
           <Text className="text-sm font-semibold text-slate-500">
@@ -94,14 +95,17 @@ export default function CustomerJobStatusScreen() {
             variant="secondary"
             onPress={() => router.push("/report")}
           />
-
-          <Button
-            title="Back to customer home"
-            variant="ghost"
-            onPress={() => router.replace("/customer/home")}
-          />
         </View>
       </View>
+
+      <CustomerBottomNav
+        activeTab="jobs"
+        onHomePress={() => router.replace("/customer/home")}
+        onJobsPress={() => router.replace("/customer/jobs")}
+        onPostPress={() => router.push("/customer/post-job")}
+        onOffersPress={() => router.push("/customer/offers")}
+        onProfilePress={() => {}}
+      />
     </Screen>
   );
 }
