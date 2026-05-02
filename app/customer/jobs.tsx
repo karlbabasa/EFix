@@ -69,15 +69,6 @@ export default function CustomerJobsScreen() {
           />
         )}
       </View>
-
-      <CustomerBottomNav
-        activeTab="jobs"
-        onHomePress={() => router.replace("/customer/home")}
-        onJobsPress={() => router.replace("/customer/jobs")}
-        onPostPress={() => router.push("/customer/post-job")}
-        onOffersPress={() => router.push("/customer/offers")}
-        onProfilePress={() => {}}
-      />
     </ScrollScreen>
   );
 }

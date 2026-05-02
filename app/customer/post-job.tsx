@@ -87,15 +87,6 @@ export default function PostJobScreen() {
           onPress={() => router.back()}
         />
       </View>
-
-      <CustomerBottomNav
-        activeTab="home"
-        onHomePress={() => router.replace("/customer/home")}
-        onJobsPress={() => router.push("/customer/jobs")}
-        onPostPress={() => router.replace("/customer/post-job")}
-        onOffersPress={() => router.push("/customer/offers")}
-        onProfilePress={() => {}}
-      />
     </ScrollScreen>
   );
 }

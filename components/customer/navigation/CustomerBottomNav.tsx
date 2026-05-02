@@ -1,14 +1,8 @@
+import { usePathname, useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-type CustomerBottomNavProps = {
-  activeTab: "home" | "jobs" | "offers" | "profile";
-  onHomePress: () => void;
-  onJobsPress: () => void;
-  onPostPress: () => void;
-  onOffersPress: () => void;
-  onProfilePress: () => void;
-};
+type CustomerTab = "home" | "jobs" | "offers" | "profile";
 
 type NavItemProps = {
   icon: string;
@@ -42,19 +36,36 @@ function NavItem({ icon, label, active = false, onPress }: NavItemProps) {
   );
 }
 
-export function CustomerBottomNav({
-  activeTab,
-  onHomePress,
-  onJobsPress,
-  onPostPress,
-  onOffersPress,
-  onProfilePress,
-}: CustomerBottomNavProps) {
+function getActiveTab(pathname: string): CustomerTab {
+  if (
+    pathname.includes("/customer/jobs") ||
+    pathname.includes("/customer/job-status") ||
+    pathname.includes("/customer/rate-provider")
+  ) {
+    return "jobs";
+  }
+
+  if (pathname.includes("/customer/offers")) {
+    return "offers";
+  }
+
+  if (pathname.includes("/customer/profile")) {
+    return "profile";
+  }
+
+  return "home";
+}
+
+export function CustomerBottomNav() {
+  const router = useRouter();
+  const pathname = usePathname();
   const insets = useSafeAreaInsets();
+
+  const activeTab = getActiveTab(pathname);
 
   return (
     <View
-      className="absolute bottom-0 left-0 right-0 border-t border-slate-200 bg-white px-4 pt-2"
+      className="absolute bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white px-4 pt-2"
       style={{
         paddingBottom: Math.max(insets.bottom, 10),
       }}
@@ -64,19 +75,19 @@ export function CustomerBottomNav({
           icon="⌂"
           label="Home"
           active={activeTab === "home"}
-          onPress={onHomePress}
+          onPress={() => router.replace("/customer/home")}
         />
 
         <NavItem
           icon="▤"
           label="Jobs"
           active={activeTab === "jobs"}
-          onPress={onJobsPress}
+          onPress={() => router.replace("/customer/jobs")}
         />
 
         <View className="w-16 items-center">
           <Pressable
-            onPress={onPostPress}
+            onPress={() => router.push("/customer/post-job")}
             className="-mt-8 h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-slate-950 active:opacity-80"
           >
             <Text className="text-3xl font-light leading-none text-white">
@@ -93,14 +104,14 @@ export function CustomerBottomNav({
           icon="₱"
           label="Offers"
           active={activeTab === "offers"}
-          onPress={onOffersPress}
+          onPress={() => router.replace("/customer/offers")}
         />
 
         <NavItem
           icon="○"
           label="Profile"
           active={activeTab === "profile"}
-          onPress={onProfilePress}
+          onPress={() => router.replace("/customer/profile")}
         />
       </View>
     </View>

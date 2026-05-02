@@ -47,15 +47,6 @@ export default function CustomerHomeScreen() {
           onPress: () => router.push("/customer/offers"),
         }}
       />
-
-      <CustomerBottomNav
-        activeTab="home"
-        onHomePress={() => router.replace("/customer/home")}
-        onJobsPress={() => router.push("/customer/jobs")}
-        onPostPress={() => router.push("/customer/post-job")}
-        onOffersPress={() => router.push("/customer/offers")}
-        onProfilePress={() => {}}
-      />
     </Screen>
   );
 }
