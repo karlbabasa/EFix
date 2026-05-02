@@ -16,25 +16,25 @@ export default function CustomerHomeScreen() {
         onPostJob={() => router.push("/customer/post-job")}
         actions={[
           {
-            icon: "＋",
+            icon: "add-circle-outline",
             title: "Post job",
             description: "Create a request",
             onPress: () => router.push("/customer/post-job"),
           },
           {
-            icon: "⌕",
+            icon: "search-outline",
             title: "Find provider",
             description: "Browse services",
-            onPress: () => {},
+            onPress: () => { },
           },
           {
-            icon: "₱",
+            icon: "pricetag-outline",
             title: "Offers",
             description: "Compare prices",
             onPress: () => router.push("/customer/offers"),
           },
           {
-            icon: "!",
+            icon: "warning-outline",
             title: "Report",
             description: "Safety help",
             onPress: () => router.push("/report"),

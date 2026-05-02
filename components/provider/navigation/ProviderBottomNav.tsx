@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { usePathname, useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -5,25 +6,30 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 type ProviderTab = "home" | "jobs" | "offers" | "profile";
 
 type NavItemProps = {
-  icon: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  activeIcon: keyof typeof Ionicons.glyphMap;
   label: string;
   active?: boolean;
   onPress: () => void;
 };
 
-function NavItem({ icon, label, active = false, onPress }: NavItemProps) {
+function NavItem({
+  icon,
+  activeIcon,
+  label,
+  active = false,
+  onPress,
+}: NavItemProps) {
   return (
     <Pressable
       onPress={onPress}
       className="flex-1 items-center justify-center py-2 active:opacity-70"
     >
-      <Text
-        className={`text-lg font-bold ${
-          active ? "text-slate-950" : "text-slate-400"
-        }`}
-      >
-        {icon}
-      </Text>
+      <Ionicons
+        name={active ? activeIcon : icon}
+        size={22}
+        color={active ? "#020617" : "#94A3B8"}
+      />
 
       <Text
         className={`mt-1 text-[11px] font-semibold ${
@@ -75,28 +81,32 @@ export function ProviderBottomNav() {
     >
       <View className="flex-row items-center justify-between">
         <NavItem
-          icon="⌂"
+          icon="home-outline"
+          activeIcon="home"
           label="Home"
           active={activeTab === "home"}
           onPress={() => router.replace("/provider/home")}
         />
 
         <NavItem
-          icon="▤"
+          icon="briefcase-outline"
+          activeIcon="briefcase"
           label="Jobs"
           active={activeTab === "jobs"}
           onPress={() => router.replace("/provider/open-jobs")}
         />
 
         <NavItem
-          icon="₱"
+          icon="send-outline"
+          activeIcon="send"
           label="Offers"
           active={activeTab === "offers"}
           onPress={() => router.replace("/provider/offers")}
         />
 
         <NavItem
-          icon="○"
+          icon="person-outline"
+          activeIcon="person"
           label="Profile"
           active={activeTab === "profile"}
           onPress={() => router.replace("/provider/profile")}

@@ -5,8 +5,10 @@ import { DashboardHeader } from "@/components/common/dashboard/DashboardHeader";
 import { DashboardInfoCard } from "@/components/common/dashboard/DashboardInfoCard";
 import { DashboardSummaryCard } from "@/components/common/dashboard/DashboardSummaryCard";
 
+import Ionicons from "@expo/vector-icons/Ionicons";
+
 type DashboardAction = {
-  icon: string;
+  icon: keyof typeof Ionicons.glyphMap;
   title: string;
   description: string;
   onPress: () => void;

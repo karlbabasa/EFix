@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { usePathname, useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -5,25 +6,30 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 type CustomerTab = "home" | "jobs" | "offers" | "profile";
 
 type NavItemProps = {
-  icon: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  activeIcon: keyof typeof Ionicons.glyphMap;
   label: string;
   active?: boolean;
   onPress: () => void;
 };
 
-function NavItem({ icon, label, active = false, onPress }: NavItemProps) {
+function NavItem({
+  icon,
+  activeIcon,
+  label,
+  active = false,
+  onPress,
+}: NavItemProps) {
   return (
     <Pressable
       onPress={onPress}
       className="flex-1 items-center justify-center py-2 active:opacity-70"
     >
-      <Text
-        className={`text-lg font-bold ${
-          active ? "text-slate-950" : "text-slate-400"
-        }`}
-      >
-        {icon}
-      </Text>
+      <Ionicons
+        name={active ? activeIcon : icon}
+        size={22}
+        color={active ? "#020617" : "#94A3B8"}
+      />
 
       <Text
         className={`mt-1 text-[11px] font-semibold ${
@@ -72,14 +78,16 @@ export function CustomerBottomNav() {
     >
       <View className="flex-row items-center justify-between">
         <NavItem
-          icon="⌂"
+          icon="home-outline"
+          activeIcon="home"
           label="Home"
           active={activeTab === "home"}
           onPress={() => router.replace("/customer/home")}
         />
 
         <NavItem
-          icon="▤"
+          icon="briefcase-outline"
+          activeIcon="briefcase"
           label="Jobs"
           active={activeTab === "jobs"}
           onPress={() => router.replace("/customer/jobs")}
@@ -90,9 +98,7 @@ export function CustomerBottomNav() {
             onPress={() => router.push("/customer/post-job")}
             className="-mt-8 h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-slate-950 active:opacity-80"
           >
-            <Text className="text-3xl font-light leading-none text-white">
-              +
-            </Text>
+            <Ionicons name="add" size={34} color="#FFFFFF" />
           </Pressable>
 
           <Text className="mt-1 text-[11px] font-semibold text-slate-950">
@@ -101,14 +107,16 @@ export function CustomerBottomNav() {
         </View>
 
         <NavItem
-          icon="₱"
+          icon="pricetag-outline"
+          activeIcon="pricetag"
           label="Offers"
           active={activeTab === "offers"}
           onPress={() => router.replace("/customer/offers")}
         />
 
         <NavItem
-          icon="○"
+          icon="person-outline"
+          activeIcon="person"
           label="Profile"
           active={activeTab === "profile"}
           onPress={() => router.replace("/customer/profile")}
