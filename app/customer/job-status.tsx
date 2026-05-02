@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
-import { AppScrollView } from "@/components/common/AppScrollView";
+import { AppView } from "@/components/common/AppView";
 import { StatusTimelineItem } from "@/components/customer/jobs/StatusTimelineItem";
 import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
 import { Button } from "@/components/ui/Button";
@@ -33,7 +33,7 @@ export default function CustomerJobStatusScreen() {
   const router = useRouter();
 
   return (
-    <AppScrollView className="bg-slate-50" contentClassName="pb-28">
+    <AppView className="bg-slate-50 pb-28">
       <View className="flex-1 justify-between">
         <View>
           <Text className="text-sm font-semibold text-slate-500">
@@ -97,6 +97,6 @@ export default function CustomerJobStatusScreen() {
           />
         </View>
       </View>
-    </AppScrollView>
+    </AppView>
   );
 }

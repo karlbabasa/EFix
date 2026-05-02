@@ -13,10 +13,7 @@ export default function CustomerOffersScreen() {
 
   return (
     <AppScrollView className="bg-slate-50" contentClassName="pb-32">
-      <Text className="text-sm font-semibold text-slate-500">
-        Offers received
-      </Text>
-
+  
       <Text className="mt-4 text-3xl font-extrabold leading-tight text-slate-950">
         Compare provider offers.
       </Text>

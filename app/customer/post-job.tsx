@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
@@ -15,12 +15,6 @@ export default function PostJobScreen() {
 
   return (
     <AppScrollView className="bg-slate-50" contentClassName="pb-32">
-      <AuthHeader
-        eyebrow="Post a job"
-        title="Tell providers what you need."
-        description="Add enough details so providers can send accurate offers."
-      />
-
       <View className="mt-8">
         <FormCard title="Job details">
           <View className="gap-5">
