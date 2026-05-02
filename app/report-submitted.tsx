@@ -9,7 +9,8 @@ export default function ReportSubmittedScreen() {
   return (
     <Screen className="bg-slate-50">
       <ConfirmationScreenContent
-        icon="!"
+        icon="warning"
+        tone="warning"
         eyebrow="Report submitted"
         title="We received your report."
         description="This is only a placeholder for now. Later, admin will review reports and update the case status."

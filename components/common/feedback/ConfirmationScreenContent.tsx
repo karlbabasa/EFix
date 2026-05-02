@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Text, View } from "react-native";
 
 import { Button } from "@/components/ui/Button";
@@ -7,7 +8,8 @@ type Step = {
 };
 
 type ConfirmationScreenContentProps = {
-  icon?: string;
+  icon?: keyof typeof Ionicons.glyphMap;
+  tone?: "success" | "warning";
   eyebrow: string;
   title: string;
   description: string;
@@ -20,7 +22,8 @@ type ConfirmationScreenContentProps = {
 };
 
 export function ConfirmationScreenContent({
-  icon = "✓",
+  icon = "checkmark",
+  tone = "success",
   eyebrow,
   title,
   description,
@@ -31,13 +34,23 @@ export function ConfirmationScreenContent({
   onPrimaryAction,
   onSecondaryAction,
 }: ConfirmationScreenContentProps) {
+  const isWarning = tone === "warning";
+
   return (
     <View className="flex-1 justify-between">
       <View>
-        <View className="h-14 w-14 items-center justify-center rounded-2xl border border-emerald-100 bg-emerald-50">
-          <Text className="text-2xl font-bold text-emerald-700">
-            {icon}
-          </Text>
+        <View
+          className={`h-14 w-14 items-center justify-center rounded-2xl border ${
+            isWarning
+              ? "border-amber-100 bg-amber-50"
+              : "border-emerald-100 bg-emerald-50"
+          }`}
+        >
+          <Ionicons
+            name={icon}
+            size={26}
+            color={isWarning ? "#B45309" : "#047857"}
+          />
         </View>
 
         <Text className="mt-8 text-sm font-semibold text-slate-500">

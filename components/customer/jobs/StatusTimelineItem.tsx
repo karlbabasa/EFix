@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Text, View } from "react-native";
 
 type StatusTimelineItemProps = {
@@ -18,19 +19,15 @@ export function StatusTimelineItem({
           done ? "bg-slate-950" : "bg-slate-100"
         }`}
       >
-        <Text
-          className={`text-xs font-bold ${
-            done ? "text-white" : "text-slate-400"
-          }`}
-        >
-          {done ? "✓" : ""}
-        </Text>
+        {done ? (
+          <Ionicons name="checkmark" size={15} color="#FFFFFF" />
+        ) : (
+          <Ionicons name="ellipse-outline" size={14} color="#94A3B8" />
+        )}
       </View>
 
       <View className="flex-1">
-        <Text className="text-sm font-bold text-slate-950">
-          {title}
-        </Text>
+        <Text className="text-sm font-bold text-slate-950">{title}</Text>
 
         <Text className="mt-1 text-sm leading-5 text-slate-500">
           {description}

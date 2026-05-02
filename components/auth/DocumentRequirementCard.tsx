@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Text, View } from "react-native";
 
 import { Button } from "@/components/ui/Button";
@@ -19,7 +20,11 @@ export function DocumentRequirementCard({
     <View className="rounded-2xl border border-slate-200 bg-white p-5">
       <View className="flex-row items-start justify-between gap-4">
         <View className="flex-1">
-          <Text className="text-base font-bold text-slate-950">
+          <View className="h-10 w-10 items-center justify-center rounded-full bg-slate-100">
+            <Ionicons name="document-text-outline" size={20} color="#334155" />
+          </View>
+
+          <Text className="mt-4 text-base font-bold text-slate-950">
             {title}
           </Text>
 
@@ -44,11 +49,7 @@ export function DocumentRequirementCard({
       </View>
 
       <View className="mt-4">
-        <Button
-          title="Choose file"
-          variant="secondary"
-          onPress={onChooseFile}
-        />
+        <Button title="Choose file" variant="secondary" onPress={onChooseFile} />
       </View>
     </View>
   );
