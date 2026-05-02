@@ -36,6 +36,13 @@ export default function CustomerRegisterScreen() {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          full_name: fullName,
+          mobile_number: mobileNumber,
+          role: "customer",
+        },
+      },
     });
 
     if (error) {
@@ -43,36 +50,6 @@ export default function CustomerRegisterScreen() {
       Alert.alert("Sign up failed", error.message);
       return;
     }
-
-    const userId = data.user?.id;
-
-    if (!userId) {
-      setIsSubmitting(false);
-      Alert.alert(
-        "Check your email",
-        "Account created. Please confirm your email before signing in."
-      );
-      router.replace("/auth/sign-in");
-      return;
-    }
-
-    const { error: profileError } = await supabase.from("profiles").insert({
-      id: userId,
-      full_name: fullName,
-      email,
-      mobile_number: mobileNumber,
-      role: "customer",
-    });
-
-    setIsSubmitting(false);
-
-    if (profileError) {
-      Alert.alert("Profile error", profileError.message);
-      return;
-    }
-
-    router.replace("/customer/home");
-  }
 
   return (
     <ScrollScreen className="bg-slate-50">
