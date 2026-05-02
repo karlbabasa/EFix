@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
-import { Screen } from "@/components/common/Screen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { DashboardActionTile } from "@/components/common/dashboard/DashboardActionTile";
 import { DashboardHeader } from "@/components/common/dashboard/DashboardHeader";
 import { DashboardInfoCard } from "@/components/common/dashboard/DashboardInfoCard";
@@ -11,7 +11,7 @@ export default function ProviderHomeScreen() {
   const router = useRouter();
 
   return (
-    <Screen className="bg-slate-50">
+    <AppScrollView>
       <View className="flex-1">
         <DashboardHeader
           label="Provider"
@@ -86,6 +86,6 @@ export default function ProviderHomeScreen() {
           />
         </View>
       </View>
-    </Screen>
+    </AppScrollView>
   );
 }

@@ -1,14 +1,13 @@
 import { Slot, usePathname } from "expo-router";
 import { View } from "react-native";
 
-import { CustomerHeader } from "@/components/customer/navigation/CustomerHeader";
 import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
+import { CustomerHeader } from "@/components/customer/navigation/CustomerHeader";
 
 const hideCustomerChromeRoutes = ["/customer/start"];
 
 export default function CustomerLayout() {
   const pathname = usePathname();
-
   const hideChrome = hideCustomerChromeRoutes.includes(pathname);
 
   return (

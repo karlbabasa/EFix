@@ -5,7 +5,7 @@ import { demoJobs } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
 import { FormCard } from "@/components/auth/FormCard";
-import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { DetailRow } from "@/components/common/DetailRow";
 import { Button } from "@/components/ui/Button";
 
@@ -16,7 +16,7 @@ export default function ProviderJobDetailsScreen() {
     const job = demoJobs.find((item) => item.id === jobId) ?? demoJobs[0];
 
     return (
-        <ScrollScreen className="bg-slate-50">
+        <AppScrollView>
             <AuthHeader
                 eyebrow="Job details"
                 title={job.title}
@@ -69,6 +69,6 @@ export default function ProviderJobDetailsScreen() {
                     onPress={() => router.back()}
                 />
             </View>
-        </ScrollScreen>
+        </AppScrollView>
     );
 }

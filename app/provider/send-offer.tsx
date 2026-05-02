@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
 import { FormCard } from "@/components/auth/FormCard";
-import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/TextArea";
 import { TextField } from "@/components/ui/TextField";
@@ -14,7 +14,7 @@ export default function ProviderSendOfferScreen() {
   const { jobId } = useLocalSearchParams<{ jobId?: string }>();
 
   return (
-    <ScrollScreen className="bg-slate-50">
+    <AppScrollView>
       <AuthHeader
         eyebrow="Send offer"
         title="Make your offer clear."
@@ -68,6 +68,6 @@ export default function ProviderSendOfferScreen() {
           onPress={() => router.back()}
         />
       </View>
-    </ScrollScreen>
+    </AppScrollView>
   );
 }

@@ -1,13 +1,13 @@
 import { useRouter } from "expo-router";
 
-import { Screen } from "@/components/common/Screen";
+import { AppView } from "@/components/common/AppView";
 import { ConfirmationScreenContent } from "@/components/common/feedback/ConfirmationScreenContent";
 
 export default function ProviderOfferSentScreen() {
   const router = useRouter();
 
   return (
-    <Screen className="bg-slate-50">
+    <AppView>
       <ConfirmationScreenContent
         eyebrow="Offer sent"
         title="Your offer was submitted."
@@ -23,6 +23,6 @@ export default function ProviderOfferSentScreen() {
         onPrimaryAction={() => router.replace("/provider/open-jobs")}
         onSecondaryAction={() => router.replace("/provider/home")}
       />
-    </Screen>
+    </AppView>
   );
 }

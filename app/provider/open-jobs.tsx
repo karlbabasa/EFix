@@ -5,7 +5,7 @@ import { Pressable, Text, View } from "react-native";
 import { demoJobs } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { EmptyState } from "@/components/common/EmptyState";
-import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { SearchBar } from "@/components/common/SearchBar";
 import { ProviderJobCard } from "@/components/provider/jobs/ProviderJobCard";
 
@@ -24,7 +24,7 @@ export default function ProviderOpenJobsScreen() {
   });
 
   return (
-    <ScrollScreen className="bg-slate-50">
+    <AppScrollView>
       <Pressable
         className="mb-6 self-start active:opacity-70"
         onPress={() => router.back()}
@@ -73,6 +73,6 @@ export default function ProviderOpenJobsScreen() {
           />
         )}
       </View>
-    </ScrollScreen>
+    </AppScrollView>
   );
 }
