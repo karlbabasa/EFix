@@ -1,4 +1,5 @@
 import { Pressable, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type CustomerBottomNavProps = {
   activeTab: "home" | "jobs" | "offers" | "profile";
@@ -49,8 +50,15 @@ export function CustomerBottomNav({
   onOffersPress,
   onProfilePress,
 }: CustomerBottomNavProps) {
+  const insets = useSafeAreaInsets();
+
   return (
-    <View className="absolute bottom-0 left-0 right-0 border-t border-slate-200 bg-white px-4 pb-2 pt-2">
+    <View
+      className="absolute bottom-0 left-0 right-0 border-t border-slate-200 bg-white px-4 pt-2"
+      style={{
+        paddingBottom: Math.max(insets.bottom, 10),
+      }}
+    >
       <View className="flex-row items-center justify-between">
         <NavItem
           icon="⌂"
