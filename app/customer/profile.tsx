@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
 import { FormCard } from "@/components/auth/FormCard";
-import { Screen } from "@/components/common/Screen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { DetailRow } from "@/components/common/DetailRow";
 import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
 import { Button } from "@/components/ui/Button";
@@ -11,7 +11,7 @@ export default function CustomerProfileScreen() {
   const router = useRouter();
 
   return (
-    <Screen className="bg-slate-50" contentClassName="pb-28">
+    <AppScrollView className="bg-slate-50" contentClassName="pb-28">
       <View className="flex-1">
         <Text className="text-sm font-semibold text-slate-500">
           Profile
@@ -60,6 +60,6 @@ export default function CustomerProfileScreen() {
           </FormCard>
         </View>
       </View>
-    </Screen>
+    </AppScrollView>
   );
 }

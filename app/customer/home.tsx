@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 
-import { Screen } from "@/components/common/Screen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { CustomerHomeDashboard } from "@/components/common/dashboard/CustomerHomeDashboard";
 import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
 
@@ -8,7 +8,7 @@ export default function CustomerHomeScreen() {
   const router = useRouter();
 
   return (
-    <Screen className="bg-slate-50" contentClassName="pb-28">
+    <AppScrollView className="bg-slate-50" contentClassName="pb-28">
       <CustomerHomeDashboard
         appName="E-Fix"
         greeting="Hello, Karl"
@@ -47,6 +47,6 @@ export default function CustomerHomeScreen() {
           onPress: () => router.push("/customer/offers"),
         }}
       />
-    </Screen>
+    </AppScrollView>
   );
 }

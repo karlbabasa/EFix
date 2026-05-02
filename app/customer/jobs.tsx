@@ -5,7 +5,7 @@ import { View } from "react-native";
 import { demoJobs } from "@/data";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { EmptyState } from "@/components/common/EmptyState";
-import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { SearchBar } from "@/components/common/SearchBar";
 import { CustomerJobCard } from "@/components/customer/jobs/CustomerJobCard";
 import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
@@ -30,7 +30,7 @@ export default function CustomerJobsScreen() {
   });
 
   return (
-    <ScrollScreen className="bg-slate-50" contentClassName="pb-32">
+    <AppScrollView className="bg-slate-50" contentClassName="pb-32">
       <AuthHeader
         eyebrow="My jobs"
         title="Track your requests."
@@ -69,6 +69,6 @@ export default function CustomerJobsScreen() {
           />
         )}
       </View>
-    </ScrollScreen>
+    </AppScrollView>
   );
 }

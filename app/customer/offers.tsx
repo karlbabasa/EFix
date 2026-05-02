@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 import { demoOffers } from "@/data";
 import { OfferCard } from "@/components/customer/jobs/OfferCard";
 import { EmptyState } from "@/components/common/EmptyState";
-import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { Button } from "@/components/ui/Button";
 import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
 
@@ -12,7 +12,7 @@ export default function CustomerOffersScreen() {
   const router = useRouter();
 
   return (
-    <ScrollScreen className="bg-slate-50" contentClassName="pb-32">
+    <AppScrollView className="bg-slate-50" contentClassName="pb-32">
       <Text className="text-sm font-semibold text-slate-500">
         Offers received
       </Text>
@@ -56,6 +56,6 @@ export default function CustomerOffersScreen() {
           onPress={() => router.back()}
         />
       </View>
-    </ScrollScreen>
+    </AppScrollView>
   );
 }

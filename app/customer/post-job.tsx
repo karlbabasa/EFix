@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
 import { FormCard } from "@/components/auth/FormCard";
-import { ScrollScreen } from "@/components/common/ScrollScreen";
+import { AppScrollView } from "@/components/common/AppScrollView";
 import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBottomNav";
 import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/TextArea";
@@ -14,7 +14,7 @@ export default function PostJobScreen() {
   const router = useRouter();
 
   return (
-    <ScrollScreen className="bg-slate-50" contentClassName="pb-32">
+    <AppScrollView className="bg-slate-50" contentClassName="pb-32">
       <AuthHeader
         eyebrow="Post a job"
         title="Tell providers what you need."
@@ -87,6 +87,6 @@ export default function PostJobScreen() {
           onPress={() => router.back()}
         />
       </View>
-    </ScrollScreen>
+    </AppScrollView>
   );
 }

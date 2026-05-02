@@ -49,7 +49,7 @@ export function CustomerHeader() {
   const insets = useSafeAreaInsets();
 
   const config = getHeaderConfig(pathname);
-
+ 
   return (
     <View
       className="border-b border-slate-200 bg-white px-5 pb-3"
