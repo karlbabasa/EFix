@@ -1,12 +1,14 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
+import { Alert, Text, View } from "react-native";
 
 import { AppScrollView } from "@/components/common/AppScrollView";
 import { DashboardActionTile } from "@/components/common/dashboard/DashboardActionTile";
 import { DashboardHeader } from "@/components/common/dashboard/DashboardHeader";
 import { DashboardInfoCard } from "@/components/common/dashboard/DashboardInfoCard";
 import { DashboardSummaryCard } from "@/components/common/dashboard/DashboardSummaryCard";
+import { supabase } from "@/lib/supabase";
 
 type ProviderAction = {
   icon: keyof typeof Ionicons.glyphMap;
@@ -15,8 +17,92 @@ type ProviderAction = {
   onPress: () => void;
 };
 
+type ProviderStatus =
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "resubmission_required"
+  | "suspended";
+
+function getStatusContent(status: ProviderStatus | null) {
+  if (status === "approved") {
+    return {
+      title: "Approved",
+      description: "Your provider account is approved. You can now browse jobs and send offers.",
+      tone: "default" as const,
+      buttonTitle: "Browse open jobs",
+    };
+  }
+
+  if (status === "rejected") {
+    return {
+      title: "Application rejected",
+      description: "Your application was rejected. Check admin notes or contact support.",
+      tone: "warning" as const,
+      buttonTitle: "Review application",
+    };
+  }
+
+  if (status === "resubmission_required") {
+    return {
+      title: "Resubmission required",
+      description: "Admin needs updated information or documents before approval.",
+      tone: "warning" as const,
+      buttonTitle: "Update application",
+    };
+  }
+
+  if (status === "suspended") {
+    return {
+      title: "Account suspended",
+      description: "Your provider account is suspended and cannot accept jobs.",
+      tone: "warning" as const,
+      buttonTitle: "Contact support",
+    };
+  }
+
+  return {
+    title: "Pending approval",
+    description: "Your provider account needs admin approval before you can accept real jobs.",
+    tone: "warning" as const,
+    buttonTitle: "Check application",
+  };
+}
+
 export default function ProviderHomeScreen() {
   const router = useRouter();
+  const [providerStatus, setProviderStatus] = useState<ProviderStatus | null>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      async function loadProviderStatus() {
+        const {
+          data: { user },
+          error: userError,
+        } = await supabase.auth.getUser();
+
+        if (userError || !user) {
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("provider_profiles")
+          .select("status")
+          .eq("user_id", user.id)
+          .single();
+
+        if (error) {
+          return;
+        }
+
+        setProviderStatus(data.status);
+      }
+
+      loadProviderStatus();
+    }, [])
+  );
+
+  const statusContent = getStatusContent(providerStatus);
 
   const providerActions: ProviderAction[] = [
     {
@@ -35,7 +121,7 @@ export default function ProviderHomeScreen() {
       icon: "time-outline",
       title: "Availability",
       description: "Set schedule",
-      onPress: () => { },
+      onPress: () => Alert.alert("Coming soon", "Availability settings will be added later."),
     },
     {
       icon: "warning-outline",
@@ -48,19 +134,22 @@ export default function ProviderHomeScreen() {
   return (
     <AppScrollView>
       <View className="flex-1">
-        <DashboardHeader
-          label="Provider"
-          title="Work dashboard"
-          avatarLabel="P"
-        />
+        <DashboardHeader label="Provider" title="Work dashboard" avatarLabel="P" />
 
         <DashboardSummaryCard
           label="Account status"
-          title="Pending approval"
-          description="Your provider account needs admin approval before you can accept real jobs."
-          buttonTitle="Check application"
-          tone="warning"
-          onPress={() => { }}
+          title={statusContent.title}
+          description={statusContent.description}
+          buttonTitle={statusContent.buttonTitle}
+          tone={statusContent.tone}
+          onPress={() => {
+            if (providerStatus === "approved") {
+              router.push("/provider/open-jobs");
+              return;
+            }
+
+            router.push("/auth/provider-documents");
+          }}
         />
 
         <View className="mt-7">
@@ -97,7 +186,11 @@ export default function ProviderHomeScreen() {
             subtitle="Plumbing • Dasmariñas, Cavite"
             badgeLabel="₱500+"
             badgeTone="success"
-            description="Sample job only. Real job access will be locked until approval."
+            description={
+              providerStatus === "approved"
+                ? "You can browse open jobs and send offers."
+                : "Sample job only. Real job access will be locked until approval."
+            }
             buttonTitle="Browse open jobs"
             onPress={() => router.push("/provider/open-jobs")}
           />
