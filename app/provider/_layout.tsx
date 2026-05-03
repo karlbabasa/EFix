@@ -6,18 +6,20 @@ import { ProviderBottomNav } from "@/components/provider/navigation/ProviderBott
 import { ProviderHeader } from "@/components/provider/navigation/ProviderHeader";
 import { getCurrentProfile } from "@/lib/get-current-profile";
 
-const hideProviderChromeRoutes = ["/provider/start"];
+const publicProviderRoutes = ["/provider/start"];
 
 export default function ProviderLayout() {
   const pathname = usePathname();
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
 
-  const hideChrome = hideProviderChromeRoutes.includes(pathname);
+  const isPublicProviderRoute = publicProviderRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
 
   useEffect(() => {
     async function checkAccess() {
-      if (hideChrome) {
+      if (isPublicProviderRoute) {
         setIsChecking(false);
         return;
       }
@@ -38,7 +40,7 @@ export default function ProviderLayout() {
     }
 
     checkAccess();
-  }, [hideChrome, router]);
+  }, [isPublicProviderRoute, router]);
 
   if (isChecking) {
     return (
@@ -50,13 +52,13 @@ export default function ProviderLayout() {
 
   return (
     <View className="flex-1 bg-slate-50">
-      {!hideChrome ? <ProviderHeader /> : null}
+      {!isPublicProviderRoute ? <ProviderHeader /> : null}
 
       <View className="flex-1">
         <Slot />
       </View>
 
-      {!hideChrome ? <ProviderBottomNav /> : null}
+      {!isPublicProviderRoute ? <ProviderBottomNav /> : null}
     </View>
   );
 }

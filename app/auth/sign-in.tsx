@@ -1,13 +1,74 @@
+import { useState } from "react";
+import { Alert, Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import { Pressable, Text, View } from "react-native";
 
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { Screen } from "@/components/common/Screen";
 import { Button } from "@/components/ui/Button";
 import { TextField } from "@/components/ui/TextField";
+import { supabase } from "@/lib/supabase";
 
 export default function SignInScreen() {
   const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSignIn() {
+    if (!email || !password) {
+      Alert.alert("Missing details", "Please enter your email and password.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
+
+      if (error) {
+        Alert.alert("Sign in failed", error.message);
+        return;
+      }
+
+      const userId = data.user.id;
+
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", userId)
+        .single();
+
+      if (profileError) {
+        Alert.alert("Profile error", profileError.message);
+        return;
+      }
+
+      if (profile.role === "customer") {
+        router.replace("/customer/home");
+        return;
+      }
+
+      if (profile.role === "provider") {
+        router.replace("/provider/home");
+        return;
+      }
+
+      if (profile.role === "admin") {
+        router.replace("/admin/home");
+        return;
+      }
+
+      router.replace("/");
+    } catch {
+      Alert.alert("Unexpected error", "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <Screen className="bg-slate-50">
@@ -26,6 +87,8 @@ export default function SignInScreen() {
                 placeholder="you@example.com"
                 keyboardType="email-address"
                 autoCapitalize="none"
+                value={email}
+                onChangeText={setEmail}
               />
 
               <TextField
@@ -33,6 +96,8 @@ export default function SignInScreen() {
                 placeholder="Enter your password"
                 secureTextEntry
                 autoCapitalize="none"
+                value={password}
+                onChangeText={setPassword}
               />
             </View>
 
@@ -45,7 +110,11 @@ export default function SignInScreen() {
         </View>
 
         <View className="gap-3 pb-2">
-          <Button title="Sign in" onPress={() => {}} />
+          <Button
+            title="Sign in"
+            loading={isSubmitting}
+            onPress={handleSignIn}
+          />
 
           <Button
             title="Back"

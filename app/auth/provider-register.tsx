@@ -1,11 +1,14 @@
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { useState } from "react";
+import { Alert, Text, View } from "react-native";
 
 import { AuthHeader } from "@/components/auth/AuthHeader";
 import { AuthNotice } from "@/components/auth/AuthNotice";
 import { FormCard } from "@/components/auth/FormCard";
 import { ScrollScreen } from "@/components/common/ScrollScreen";
 import { Button } from "@/components/ui/Button";
+import { TextField } from "@/components/ui/TextField";
+import { supabase } from "@/lib/supabase";
 
 const requirements = [
   "Valid government ID",
@@ -18,15 +21,120 @@ const requirements = [
 export default function ProviderRegisterScreen() {
   const router = useRouter();
 
+  const [fullName, setFullName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleCreateProviderAccount() {
+    if (!fullName || !mobileNumber || !email || !password || !confirmPassword) {
+      Alert.alert("Missing details", "Please complete all account fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Alert.alert("Password mismatch", "Passwords do not match.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: {
+          data: {
+            full_name: fullName.trim(),
+            mobile_number: mobileNumber.trim(),
+            role: "provider",
+          },
+        },
+      });
+
+      if (error) {
+        Alert.alert("Sign up failed", error.message);
+        return;
+      }
+
+      if (!data.session) {
+        Alert.alert(
+          "Check your email",
+          "Provider account created. Please confirm your email before continuing."
+        );
+
+        router.replace("/auth/sign-in");
+        return;
+      }
+
+      router.push("/auth/provider-profile");
+    } catch {
+      Alert.alert("Unexpected error", "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <ScrollScreen className="bg-slate-50">
       <AuthHeader
         eyebrow="Provider application"
-        title="Before you apply."
-        description="Prepare your profile details and documents so admin can review your account properly."
+        title="Create your provider account."
+        description="Start with your basic account details, then complete your provider profile and documents."
       />
 
       <View className="mt-8">
+        <FormCard title="Account details">
+          <View className="gap-5">
+            <TextField
+              label="Full name"
+              placeholder="Juan Dela Cruz"
+              autoCapitalize="words"
+              value={fullName}
+              onChangeText={setFullName}
+            />
+
+            <TextField
+              label="Mobile number"
+              placeholder="09XX XXX XXXX"
+              keyboardType="phone-pad"
+              value={mobileNumber}
+              onChangeText={setMobileNumber}
+            />
+
+            <TextField
+              label="Email address"
+              placeholder="you@example.com"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              value={email}
+              onChangeText={setEmail}
+            />
+
+            <TextField
+              label="Password"
+              placeholder="Create a password"
+              secureTextEntry
+              autoCapitalize="none"
+              value={password}
+              onChangeText={setPassword}
+            />
+
+            <TextField
+              label="Confirm password"
+              placeholder="Repeat your password"
+              secureTextEntry
+              autoCapitalize="none"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+            />
+          </View>
+        </FormCard>
+      </View>
+
+      <View className="mt-5">
         <FormCard title="Prepare these documents">
           <View className="gap-3">
             {requirements.map((item) => (
@@ -52,8 +160,9 @@ export default function ProviderRegisterScreen() {
 
       <View className="mt-8 gap-3 pb-2">
         <Button
-          title="Continue application"
-          onPress={() => router.push("/auth/provider-profile")}
+          title="Create provider account"
+          loading={isSubmitting}
+          onPress={handleCreateProviderAccount}
         />
 
         <Button
