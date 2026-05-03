@@ -1,11 +1,36 @@
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
+import { supabase } from "@/lib/supabase";
+import { useEffect, useState } from "react";
+
 import { Screen } from "@/components/common/Screen";
 import { Button } from "@/components/ui/Button";
 
 export default function Index() {
   const router = useRouter();
+  const [checkingSession, setCheckingSession] = useState(true);
+
+  useEffect(() => {
+    async function checkSession() {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (session?.user) {
+        router.replace("/splash");
+        return;
+      }
+
+      setCheckingSession(false);
+    }
+
+    checkSession();
+  }, [router]);
+
+  if (checkingSession) {
+    return null;
+  }
 
   return (
     <Screen className="bg-slate-50">
