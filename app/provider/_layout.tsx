@@ -6,25 +6,30 @@ import { ProviderBottomNav } from "@/components/provider/navigation/ProviderBott
 import { ProviderHeader } from "@/components/provider/navigation/ProviderHeader";
 import { getCurrentProfile } from "@/lib/get-current-profile";
 
-const publicProviderRoutes = ["/provider/start"];
-
 export default function ProviderLayout() {
   const pathname = usePathname();
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
 
-  const isPublicProviderRoute = publicProviderRoutes.some((route) =>
-    pathname.startsWith(route)
-  );
+  const isProviderRoute = pathname.startsWith("/provider");
+  const isProviderStart = pathname === "/provider/start";
 
   useEffect(() => {
+    let isMounted = true;
+
     async function checkAccess() {
-      if (isPublicProviderRoute) {
-        setIsChecking(false);
+      setIsChecking(true);
+
+      if (!isProviderRoute || isProviderStart) {
+        if (isMounted) {
+          setIsChecking(false);
+        }
         return;
       }
 
       const profile = await getCurrentProfile();
+
+      if (!isMounted) return;
 
       if (!profile) {
         router.replace("/auth/sign-in");
@@ -40,7 +45,11 @@ export default function ProviderLayout() {
     }
 
     checkAccess();
-  }, [isPublicProviderRoute, router]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [pathname, isProviderRoute, isProviderStart, router]);
 
   if (isChecking) {
     return (
@@ -52,13 +61,13 @@ export default function ProviderLayout() {
 
   return (
     <View className="flex-1 bg-slate-50">
-      {!isPublicProviderRoute ? <ProviderHeader /> : null}
+      {isProviderRoute && !isProviderStart ? <ProviderHeader /> : null}
 
       <View className="flex-1">
         <Slot />
       </View>
 
-      {!isPublicProviderRoute ? <ProviderBottomNav /> : null}
+      {isProviderRoute && !isProviderStart ? <ProviderBottomNav /> : null}
     </View>
   );
 }

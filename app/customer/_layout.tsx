@@ -6,23 +6,30 @@ import { CustomerBottomNav } from "@/components/customer/navigation/CustomerBott
 import { CustomerHeader } from "@/components/customer/navigation/CustomerHeader";
 import { getCurrentProfile } from "@/lib/get-current-profile";
 
-const hideCustomerChromeRoutes = ["/customer/start"];
-
 export default function CustomerLayout() {
   const pathname = usePathname();
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
 
-  const hideChrome = hideCustomerChromeRoutes.includes(pathname);
+  const isCustomerRoute = pathname.startsWith("/customer");
+  const isCustomerStart = pathname === "/customer/start";
 
   useEffect(() => {
+    let isMounted = true;
+
     async function checkAccess() {
-      if (hideChrome) {
-        setIsChecking(false);
+      setIsChecking(true);
+
+      if (!isCustomerRoute || isCustomerStart) {
+        if (isMounted) {
+          setIsChecking(false);
+        }
         return;
       }
 
       const profile = await getCurrentProfile();
+
+      if (!isMounted) return;
 
       if (!profile) {
         router.replace("/auth/sign-in");
@@ -38,7 +45,11 @@ export default function CustomerLayout() {
     }
 
     checkAccess();
-  }, [hideChrome, router]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [pathname, isCustomerRoute, isCustomerStart, router]);
 
   if (isChecking) {
     return (
@@ -50,13 +61,13 @@ export default function CustomerLayout() {
 
   return (
     <View className="flex-1 bg-slate-50">
-      {!hideChrome ? <CustomerHeader /> : null}
+      {isCustomerRoute && !isCustomerStart ? <CustomerHeader /> : null}
 
       <View className="flex-1">
         <Slot />
       </View>
 
-      {!hideChrome ? <CustomerBottomNav /> : null}
+      {isCustomerRoute && !isCustomerStart ? <CustomerBottomNav /> : null}
     </View>
   );
 }
