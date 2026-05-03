@@ -1,13 +1,19 @@
 import { useRouter } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 
 import { redirectUserByRole } from "@/lib/redirect-user";
 
 export default function SplashScreen() {
   const router = useRouter();
+  const hasRedirected = useRef(false);
 
   useEffect(() => {
+    if (hasRedirected.current) {
+      return;
+    }
+
+    hasRedirected.current = true;
     redirectUserByRole(router);
   }, [router]);
 

@@ -21,6 +21,7 @@ function NavItem({
   onPress,
 }: NavItemProps) {
   return (
+    
     <Pressable
       onPress={onPress}
       className="flex-1 items-center justify-center py-2 active:opacity-70"

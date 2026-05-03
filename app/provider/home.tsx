@@ -35,7 +35,7 @@ export default function ProviderHomeScreen() {
       icon: "time-outline",
       title: "Availability",
       description: "Set schedule",
-      onPress: () => {},
+      onPress: () => { },
     },
     {
       icon: "warning-outline",
@@ -60,7 +60,7 @@ export default function ProviderHomeScreen() {
           description="Your provider account needs admin approval before you can accept real jobs."
           buttonTitle="Check application"
           tone="warning"
-          onPress={() => {}}
+          onPress={() => { }}
         />
 
         <View className="mt-7">
